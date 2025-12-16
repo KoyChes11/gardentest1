@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+<html lang="km" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tano Garden - ចម្ការតាណូ</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        khmer: ['"Kantumruy Pro"', 'sans-serif'],
+                    },
+                    animation: {
+                        blob: "blob 7s infinite",
+                        fadeInUp: "fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards",
+                        wiggle: "wiggle 3s infinite ease-in-out",
+                        float: "float 15s infinite ease-in-out",
+                        shine: "shine 4s infinite",
+                        slideUp: "slideUp 0.5s ease-out forwards",
+                    },
+                    keyframes: {
+                        blob: {
+                            "0%": { transform: "translate(0px, 0px) scale(1)" },
+                            "33%": { transform: "translate(30px, -50px) scale(1.1)" },
+                            "66%": { transform: "translate(-20px, 20px) scale(0.9)" },
+                            "100%": { transform: "translate(0px, 0px) scale(1)" }
+                        },
+                        fadeInUp: {
+                            "0%": { opacity: 0, transform: "translateY(40px) scale(0.95)" },
+                            "100%": { opacity: 1, transform: "translateY(0) scale(1)" }
+                        },
+                        wiggle: {
+                            "0%, 100%": { transform: "scale(1)" },
+                            "50%": { transform: "scale(1.05)" }
+                        },
+                        float: {
+                            "0%": { transform: "translateY(0) rotate(0deg)", opacity: 0.3 },
+                            "50%": { transform: "translateY(-20px) rotate(5deg)", opacity: 0.6 },
+                            "100%": { transform: "translateY(0) rotate(0deg)", opacity: 0.3 }
+                        },
+                        shine: {
+                            "0%": { left: "-100%" },
+                            "50%": { left: "100%" },
+                            "100%": { left: "100%" }
+                        },
+                        slideUp: {
+                            "from": { opacity: 0, transform: "translateY(20px)" },
+                            "to": { opacity: 1, transform: "translateY(0)" }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Custom Styles */
+        body { font-family: 'Kantumruy Pro', sans-serif; }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #FAF9F6; }
+        .dark ::-webkit-scrollbar-track { background: #1C2321; }
+        ::-webkit-scrollbar-thumb { background: #84A98C; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #52796F; }
+
+        /* Liquid Glass Effect */
+        .liquid-glass {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .liquid-glass::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+            animation: shine 4s infinite;
+        }
+
+        /* Marquee */
+        @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        .animate-marquee { display: inline-block; animation: marquee 40s linear infinite; white-space: nowrap; }
+
+        /* Plant Vine Animation */
+        .plant-vine-path { stroke-dasharray: 1000; transition: stroke-dashoffset 0.1s linear; }
+
+        /* Water Droplet */
+        .water-droplet { transition: transform 0.8s ease-out; opacity: 0; }
+        .group:hover .water-droplet { opacity: 1; transform: translateY(15px); }
+
+        /* Logo Hover */
+        .logo-group:hover .logo-icon { transform: scale(1.15); }
+        .logo-group:hover .logo-text { transform: scale(1.05); color: #52796F; }
+
+        /* Parallax Blobs */
+        .parallax-blob { transition: transform 0.1s ease-out; }
+
+        /* Draggable Chat */
+        #chat-widget-container { touch-action: none; }
+        .grabbing { cursor: grabbing; }
+        .grab { cursor: grab; }
+    </style>
+</head>
+<body class="bg-[#FAF9F6] text-[#4A4E4D] dark:bg-[#1C2321] dark:text-[#EAE8E2] transition-colors duration-700 pb-32 selection:bg-[#E07A5F] selection:text-white">
+
+    <!-- Floating Background Elements (Parallax) -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-40">
+        <i data-lucide="leaf" class="absolute text-[#84A98C] animate-float parallax-blob" data-speed="0.05" style="top: 15%; left: 5%; width: 48px; height: 48px; animation-delay: 0s;"></i>
+        <i data-lucide="leaf" class="absolute text-[#52796F] animate-float parallax-blob" data-speed="0.08" style="top: 50%; right: 10%; width: 64px; height: 64px; animation-delay: 4s;"></i>
+        <i data-lucide="flower-2" class="absolute text-[#F4A261] animate-float parallax-blob" data-speed="0.03" style="bottom: 10%; left: 15%; width: 40px; height: 40px; animation-delay: 7s;"></i>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-700 bg-transparent py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="logo-group flex items-center gap-3 group cursor-pointer select-none transition-all duration-500" onclick="window.scrollTo(0,0)">
+                <div class="logo-icon w-12 h-12 bg-[#52796F] dark:bg-[#84A98C] rounded-full flex items-center justify-center text-white shadow-lg transition-transform duration-500 flex-shrink-0">
+                    <i data-lucide="leaf" class="w-6 h-6"></i>
+                </div>
+                <h1 id="nav-title" class="logo-text text-xl md:text-3xl font-bold tracking-tight transition-all duration-500 whitespace-nowrap text-[#52796F] dark:text-[#84A98C]">
+                    ចម្ការតាណូ
+                </h1>
+            </div>
+
+            <!-- Search (Desktop) -->
+            <div class="hidden lg:flex items-center rounded-full px-5 py-3 border shadow-sm focus-within:shadow-md focus-within:border-[#84A98C] transition-all duration-500 w-80 bg-[#F2F0EB] border-[#E0DCD3] text-[#4A4E4D] dark:bg-[#3E4E4A] dark:border-[#526660] dark:text-white">
+                <i data-lucide="search" class="text-[#84A98C] w-5 h-5 flex-shrink-0"></i>
+                <input type="text" id="desktop-search" placeholder="ស្វែងរក..." class="bg-transparent border-none outline-none ml-3 w-full text-sm font-medium placeholder-gray-400">
+            </div>
+
+            <!-- Controls -->
+            <div class="flex items-center gap-3">
+                <!-- Cart Button -->
+                <button onclick="openCart()" class="relative p-2.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors group">
+                    <i data-lucide="shopping-cart" class="w-5 h-5 text-[#52796F] dark:text-[#84A98C]"></i>
+                    <span id="cart-badge" class="absolute top-1 right-1 w-4 h-4 bg-[#E76F51] text-white text-[10px] font-bold rounded-full flex items-center justify-center opacity-0 transition-opacity">0</span>
+                </button>
+
+                <button onclick="toggleTheme()" class="p-2.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors" title="Toggle Theme">
+                    <i id="theme-icon" data-lucide="moon" class="w-5 h-5 text-[#2F3E46]"></i>
+                </button>
+                <button onclick="toggleLanguage()" class="p-2.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors" title="Change Language">
+                    <i data-lucide="globe" class="w-5 h-5 text-[#52796F] dark:text-[#84A98C]"></i>
+                </button>
+                
+                <div class="hidden md:flex flex-col items-end text-xs font-semibold ml-2">
+                    <a href="tel:+85517912024" class="flex items-center gap-1 hover:text-[#E76F51] transition-colors text-[#52796F] dark:text-[#84A98C]">
+                        <i data-lucide="phone" class="w-3.5 h-3.5"></i> 017 912 024
+                    </a>
+                </div>
+
+                <button class="lg:hidden p-2.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10" onclick="focusSearch()">
+                    <i data-lucide="search" class="w-6 h-6 text-[#52796F] dark:text-[#84A98C]"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative pt-40 pb-16 px-4 overflow-hidden">
+        <!-- Background Blobs (Parallax Targets) -->
+        <div class="absolute inset-0 z-0 bg-gradient-to-b from-[#FAF9F6] to-[#EAE8E2] dark:from-[#1C2321] dark:to-[#2D3A37]"></div>
+        <div class="absolute top-20 right-0 w-96 h-96 bg-[#84A98C] rounded-full mix-blend-multiply filter blur-[120px] opacity-20 animate-blob parallax-blob" data-speed="-0.02"></div>
+        <div class="absolute bottom-20 left-0 w-96 h-96 bg-[#F4A261] rounded-full mix-blend-multiply filter blur-[120px] opacity-15 animate-blob animation-delay-2000 parallax-blob" data-speed="0.02"></div>
+
+        <div class="max-w-7xl mx-auto relative z-10 text-center px-4">
+            <span class="liquid-glass inline-block py-3 px-8 rounded-full text-[#354F52] text-sm font-bold mb-10 animate-fadeInUp cursor-default shadow-lg hover:scale-105 transition-transform duration-700">
+                <span class="relative z-10 flex items-center gap-2">
+                    <i data-lucide="sparkles" class="w-4 h-4 text-[#E76F51]"></i> <span id="hero-badge">ធម្មជាតិពិតៗ ១០០%</span>
+                </span>
+            </span>
+
+            <h2 id="hero-title" class="text-4xl sm:text-5xl md:text-7xl font-bold mb-8 leading-tight tracking-tight text-[#52796F] dark:text-[#84A98C]">
+                នាំយកធម្មជាតិ ចូលក្នុងផ្ទះរបស់អ្នក
+            </h2>
+
+            <p id="hero-subtitle" class="text-lg md:text-xl mb-12 max-w-2xl mx-auto leading-relaxed font-light text-gray-500 dark:text-gray-400">
+                ផ្តល់ជូននូវរុក្ខជាតិ និងផ្កាស្រស់ៗពីចម្ការផ្ទាល់ ជាមួយនឹងតម្លៃសមរម្យ និងសេវាកម្មដឹកជញ្ជូនរហ័សទាន់ចិត្ត។
+            </p>
+
+            <!-- Promo Card -->
+            <div onclick="openModal('promo-modal')" class="transform hover:scale-[1.02] transition-transform duration-700 cursor-pointer inline-block w-full max-w-md mx-auto">
+                <div class="bg-gradient-to-r from-[#52796F] to-[#84A98C] text-white p-8 rounded-[2rem] shadow-2xl shadow-[#52796F]/20 flex items-center justify-between gap-6 border border-white/20 relative overflow-hidden dark:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-[#F4A261] rounded-full blur-3xl opacity-30"></div>
+                    <div class="flex items-center gap-5 relative z-10">
+                        <div class="bg-white/20 p-4 rounded-full flex-shrink-0 backdrop-blur-md">
+                            <i data-lucide="gift" class="w-8 h-8 text-white animate-pulse"></i>
+                        </div>
+                        <div class="text-left">
+                            <p id="promo-subtitle" class="text-xs font-bold text-white/80 uppercase tracking-widest mb-1">ការផ្តល់ជូនពិសេស</p>
+                            <h3 id="promo-title" class="text-3xl font-bold">ទិញ ៥០ ថែម ១</h3>
+                        </div>
+                    </div>
+                    <div class="bg-white/20 p-3 rounded-full relative z-10 transition-transform group-hover:translate-x-1">
+                        <i data-lucide="arrow-right" class="w-6 h-6"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Search -->
+            <div class="mt-12 lg:hidden max-w-md mx-auto">
+                <div class="flex items-center rounded-2xl px-5 py-4 shadow-md border focus-within:border-[#84A98C] transition-all bg-[#F2F0EB] border-[#E0DCD3] text-[#4A4E4D] dark:bg-[#3E4E4A] dark:border-[#526660] dark:text-white">
+                    <i data-lucide="search" class="text-[#84A98C] w-6 h-6 flex-shrink-0"></i>
+                    <input id="mobile-search" type="text" placeholder="ស្វែងរក..." class="bg-transparent border-none outline-none ml-3 w-full text-lg placeholder-gray-400">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Restored Tools / Plant of Day Section -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Plant of the Day Placeholder (Populated by JS) -->
+        <div id="plant-of-day-container" class="col-span-2 md:col-span-2 lg:col-span-1 p-8 rounded-[2rem] border relative overflow-hidden group transition-all duration-700 hover:-translate-y-2 bg-white border-transparent hover:shadow-lg dark:bg-[#2D3A37] dark:border-[#3E4E4A] dark:shadow-[0_0_20px_rgba(255,255,255,0.05)]">
+            <!-- Content Injected via JS -->
+        </div>
+
+        <!-- Tool Cards -->
+        <div onclick="toggleChat()" class="p-8 rounded-[2rem] border flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-700 hover:-translate-y-2 bg-white border-transparent hover:shadow-lg dark:bg-[#2D3A37] dark:border-[#3E4E4A] dark:shadow-[0_0_20px_rgba(255,255,255,0.05)] group">
+            <div class="bg-[#EAE8E2] dark:bg-[#2F3E46] p-6 rounded-full mb-5 text-[#52796F] dark:text-[#84A98C] group-hover:scale-110 transition-transform duration-500">
+                <i data-lucide="bot" class="w-9 h-9"></i>
+            </div>
+            <h4 id="tool-doctor" class="font-bold text-xl mb-2">AI ពេទ្យរុក្ខជាតិ</h4>
+            <p id="tool-doctor-desc" class="text-sm text-gray-500">AI Diagnosis</p>
+        </div>
+
+        <div class="p-8 rounded-[2rem] border flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-700 hover:-translate-y-2 bg-white border-transparent hover:shadow-lg dark:bg-[#2D3A37] dark:border-[#3E4E4A] dark:shadow-[0_0_20px_rgba(255,255,255,0.05)] group">
+            <div class="bg-[#EAE8E2] dark:bg-[#2F3E46] p-6 rounded-full mb-5 text-[#E76F51] group-hover:scale-110 transition-transform duration-500">
+                <i data-lucide="grid" class="w-9 h-9"></i>
+            </div>
+            <h4 id="tool-planner" class="font-bold text-xl mb-2">រៀបចំសួនច្បារ</h4>
+            <p id="tool-planner-desc" class="text-sm text-gray-500">Layout Tool</p>
+        </div>
+
+        <div class="p-8 rounded-[2rem] border flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-700 hover:-translate-y-2 bg-white border-transparent hover:shadow-lg dark:bg-[#2D3A37] dark:border-[#3E4E4A] dark:shadow-[0_0_20px_rgba(255,255,255,0.05)] group">
+            <div class="bg-[#EAE8E2] dark:bg-[#2F3E46] p-6 rounded-full mb-5 text-[#F4A261] group-hover:scale-110 transition-transform duration-500">
+                <i data-lucide="camera" class="w-9 h-9"></i>
+            </div>
+            <h4 id="tool-community" class="font-bold text-xl mb-2">សហគមន៍អ្នកដាំ</h4>
+            <p id="tool-community-desc" class="text-sm text-gray-500">Photo Gallery</p>
+        </div>
+    </section>
+
+    <!-- About / Farm Story (New Section) -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div class="bg-white dark:bg-[#2D3A37] rounded-[2.5rem] p-8 md:p-12 shadow-xl border border-transparent dark:border-[#3E4E4A] flex flex-col md:flex-row gap-12 items-center">
+            <div class="w-full md:w-1/2 relative">
+                <div class="absolute inset-0 bg-[#E76F51] rounded-[2rem] transform rotate-3 opacity-20"></div>
+                <!-- Placeholder for Farm Image -->
+                <div class="relative h-64 md:h-80 bg-gray-200 dark:bg-gray-700 rounded-[2rem] overflow-hidden flex items-center justify-center">
+                    <span class="text-gray-400 text-center px-4">📸 Put your farm photo here<br>(images/farm.jpg)</span>
+                </div>
+                <div class="absolute -bottom-6 -right-6 bg-white dark:bg-[#1C2321] p-4 rounded-2xl shadow-lg flex items-center gap-3 border border-green-100 dark:border-[#3E4E4A]">
+                    <i data-lucide="map-pin" class="text-[#E76F51]"></i>
+                    <div class="text-xs font-bold">
+                        <p>Takhmao, Kandal</p>
+                        <p class="text-gray-500">Cambodia</p>
+                    </div>
+                </div>
+            </div>
+            <div class="w-full md:w-1/2 space-y-6">
+                <h2 id="about-title" class="text-3xl md:text-4xl font-bold text-[#52796F] dark:text-[#84A98C]">អំពីចម្ការយើង</h2>
+                <p id="about-desc" class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                    ចម្ការតាណូ ត្រូវបានបង្កើតឡើងដោយក្តីស្រលាញ់ចំពោះធម្មជាតិ។ យើងដាំដុះដោយយកចិត្តទុកដាក់ ដោយមិនប្រើប្រាស់សារធាតុគីមី ដើម្បីធានាថាអ្នកទទួលបាននូវភាពស្រស់ស្រាយពិតៗ។
+                </p>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="flex items-center gap-2 text-sm font-bold text-[#52796F] dark:text-[#84A98C]">
+                        <i data-lucide="check-circle-2" class="text-[#E76F51]"></i> <span id="feat-1">100% ធម្មជាតិ</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm font-bold text-[#52796F] dark:text-[#84A98C]">
+                        <i data-lucide="check-circle-2" class="text-[#E76F51]"></i> <span id="feat-2">ដាំដុះក្នុងស្រុក</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm font-bold text-[#52796F] dark:text-[#84A98C]">
+                        <i data-lucide="check-circle-2" class="text-[#E76F51]"></i> <span id="feat-3">គ្មានសារធាតុគីមី</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm font-bold text-[#52796F] dark:text-[#84A98C]">
+                        <i data-lucide="check-circle-2" class="text-[#E76F51]"></i> <span id="feat-4">ស្រស់ពីចម្ការ</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Switcher -->
+    <div id="category-sticky" class="sticky top-24 z-40 backdrop-blur-xl py-6 border-b transition-all duration-700 border-[#EAE8E2] bg-[#FAF9F6]/80 dark:border-[#2D3A37] dark:bg-[#1C2321]/80">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+            <!-- Switcher -->
+            <div class="max-w-xs sm:max-w-md w-full flex p-1.5 rounded-full relative shadow-inner bg-[#EAE8E2] dark:bg-[#2F3E46]">
+                <button onclick="setCategory('plant')" id="btn-plant" class="flex-1 flex items-center justify-center gap-2 py-3 rounded-full text-base font-bold transition-all duration-500 bg-white text-[#354F52] shadow-sm transform scale-100 dark:bg-[#52796F] dark:text-white">
+                    <i data-lucide="leaf" class="w-4.5 h-4.5"></i> <span id="cat-plant-text">រុក្ខជាតិ</span>
+                </button>
+                <button onclick="setCategory('flower')" id="btn-flower" class="flex-1 flex items-center justify-center gap-2 py-3 rounded-full text-base font-bold transition-all duration-500 text-gray-500 hover:text-[#E76F51] dark:text-gray-400">
+                    <i data-lucide="flower-2" class="w-4.5 h-4.5"></i> <span id="cat-flower-text">ផ្កា</span>
+                </button>
+            </div>
+
+            <!-- Sorting & Filtering -->
+            <div class="flex items-center gap-3 w-full md:w-auto overflow-x-auto">
+                <span id="sort-label" class="text-sm font-bold text-gray-400 whitespace-nowrap">តម្រៀបតាម:</span>
+                <button id="sort-asc" onclick="sortProducts('price-asc')" class="px-4 py-2 rounded-xl text-sm font-bold bg-white dark:bg-[#2D3A37] border border-gray-200 dark:border-[#3E4E4A] hover:border-[#E76F51] transition-colors whitespace-nowrap">តម្លៃ ទាប-ខ្ពស់</button>
+                <button id="sort-desc" onclick="sortProducts('price-desc')" class="px-4 py-2 rounded-xl text-sm font-bold bg-white dark:bg-[#2D3A37] border border-gray-200 dark:border-[#3E4E4A] hover:border-[#E76F51] transition-colors whitespace-nowrap">តម្លៃ ខ្ពស់-ទាប</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Grid -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 min-h-[60vh]">
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 md:gap-12">
+            <!-- Products injected by JS -->
+        </div>
+    </main>
+
+    <!-- Plant Care Tips (New Section) -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 bg-[#EAE8E2]/30 dark:bg-[#2F3E46]/20 rounded-[3rem] my-12">
+        <div class="text-center mb-12">
+            <h2 id="tips-title" class="text-3xl font-bold mb-2 text-[#52796F] dark:text-[#84A98C]">គន្លឹះថែរុក្ខជាតិ</h2>
+            <p id="tips-subtitle" class="text-gray-500">ចំណេះដឹងល្អៗសម្រាប់ការដាំដុះ</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="bg-white dark:bg-[#2D3A37] p-6 rounded-[2rem] hover:-translate-y-2 transition-transform duration-500 shadow-lg dark:shadow-[0_0_15px_rgba(0,0,0,0.2)]">
+                <div class="h-40 bg-green-100 rounded-2xl mb-4 flex items-center justify-center text-green-600"><i data-lucide="sun" class="w-12 h-12"></i></div>
+                <h3 id="tip-1-title" class="font-bold text-lg mb-2">ពន្លឺព្រះអាទិត្យ</h3>
+                <p id="tip-1-desc" class="text-sm text-gray-500 leading-relaxed">រុក្ខជាតិភាគច្រើនត្រូវការពន្លឺព្រឹកយ៉ាងតិច ៤-៦ ម៉ោង។</p>
+            </div>
+            <div class="bg-white dark:bg-[#2D3A37] p-6 rounded-[2rem] hover:-translate-y-2 transition-transform duration-500 shadow-lg dark:shadow-[0_0_15px_rgba(0,0,0,0.2)]">
+                <div class="h-40 bg-blue-100 rounded-2xl mb-4 flex items-center justify-center text-blue-600"><i data-lucide="droplets" class="w-12 h-12"></i></div>
+                <h3 id="tip-2-title" class="font-bold text-lg mb-2">ការស្រោចទឹក</h3>
+                <p id="tip-2-desc" class="text-sm text-gray-500 leading-relaxed">ស្រោចទឹកនៅពេលដីស្ងួត។ ចៀសវាងការស្រោចទឹកច្រើនពេក។</p>
+            </div>
+            <div class="bg-white dark:bg-[#2D3A37] p-6 rounded-[2rem] hover:-translate-y-2 transition-transform duration-500 shadow-lg dark:shadow-[0_0_15px_rgba(0,0,0,0.2)]">
+                <div class="h-40 bg-amber-100 rounded-2xl mb-4 flex items-center justify-center text-amber-600"><i data-lucide="shovel" class="w-12 h-12"></i></div>
+                <h3 id="tip-3-title" class="font-bold text-lg mb-2">ជីជាតិ</h3>
+                <p id="tip-3-desc" class="text-sm text-gray-500 leading-relaxed">ប្រើប្រាស់ជីធម្មជាតិរៀងរាល់ ២ សប្តាហ៍ម្តង ដើម្បីឲ្យលូតលាស់ល្អ។</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ (New Section) -->
+    <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 mb-24">
+        <h2 id="faq-title" class="text-2xl font-bold mb-8 text-center text-[#52796F] dark:text-[#84A98C]">សំណួរដែលសួរញឹកញាប់ (FAQ)</h2>
+        <div class="space-y-4">
+            <div class="border border-gray-200 dark:border-[#3E4E4A] rounded-2xl overflow-hidden">
+                <button onclick="this.nextElementSibling.classList.toggle('hidden')" class="w-full text-left p-5 bg-white dark:bg-[#2D3A37] font-bold flex justify-between items-center hover:bg-gray-50 dark:hover:bg-[#354F52]">
+                    <span id="faq-1-q">តើមានសេវាដឹកជញ្ជូនដែរឬទេ?</span> <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                </button>
+                <div class="hidden p-5 bg-[#FAF9F6] dark:bg-[#1C2321] text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                    <span id="faq-1-a">បាទ/ចាស! យើងមានសេវាដឹកជញ្ជូន ២៥ ខេត្តក្រុង។ តម្លៃដឹកអាស្រ័យលើទីតាំងជាក់ស្តែង។</span>
+                </div>
+            </div>
+            <div class="border border-gray-200 dark:border-[#3E4E4A] rounded-2xl overflow-hidden">
+                <button onclick="this.nextElementSibling.classList.toggle('hidden')" class="w-full text-left p-5 bg-white dark:bg-[#2D3A37] font-bold flex justify-between items-center hover:bg-gray-50 dark:hover:bg-[#354F52]">
+                    <span id="faq-2-q">តើរុក្ខជាតិងាប់អាចប្តូរបានទេ?</span> <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                </button>
+                <div class="hidden p-5 bg-[#FAF9F6] dark:bg-[#1C2321] text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                    <span id="faq-2-a">យើងធានារុក្ខជាតិក្នុងរយៈពេល ៣ ថ្ងៃបន្ទាប់ពីទទួលបាន។ ប្រសិនបើមានបញ្ហា សូមថតរូបមកកាន់យើងខ្ញុំ។</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wrapper for hideable bottom elements -->
+    <div id="bottom-decor" class="transition-opacity duration-300">
+        <!-- Fixed Bottom Address -->
+        <div class="fixed bottom-6 left-0 right-0 z-40 pointer-events-none flex justify-center">
+            <div class="relative max-w-[95%] sm:max-w-sm md:max-w-3xl w-full mx-auto">
+                <!-- Growing Vine Animation -->
+                <div class="absolute bottom-[90%] left-0 w-full h-16 pointer-events-none z-50 overflow-visible">
+                   <div class="absolute bottom-0 left-0 transform -translate-x-1/2 translate-y-3">
+                     <svg width="40" height="40" viewBox="0 0 24 24" fill="#8B4513" xmlns="http://www.w3.org/2000/svg"><path d="M4 6h16l-2 14H6L4 6z" /><path d="M2 4h20v2H2z" /></svg>
+                   </div>
+                   <svg class="w-full h-full overflow-visible" preserveAspectRatio="none">
+                     <defs>
+                       <linearGradient id="vineGradient" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stopColor="#84A98C" /><stop offset="100%" stopColor="#52796F" /></linearGradient>
+                     </defs>
+                     <path id="vine-path" d="M 10 35 Q 50 5, 100 35 T 200 35 T 300 35 T 400 35 T 500 35 T 600 35 T 800 35" fill="none" stroke="url(#vineGradient)" stroke-width="4" stroke-linecap="round" class="plant-vine-path" style="stroke-dasharray: 1000; stroke-dashoffset: 1000;"></path>
+                     
+                     <!-- Leaves -->
+                     <g class="leaf-group" style="transform: translate(20%, 20px) scale(0); transition: transform 0.5s;">
+                        <path d="M0 0 Q 10 -10, 20 0 Q 10 10, 0 0" fill="#84A98C" transform="rotate(-45)" />
+                     </g>
+                     <g class="leaf-group" style="transform: translate(40%, 20px) scale(0); transition: transform 0.5s;">
+                        <path d="M0 0 Q 10 -10, 20 0 Q 10 10, 0 0" fill="#84A98C" transform="rotate(45)" />
+                     </g>
+                     <g class="leaf-group" style="transform: translate(60%, 20px) scale(0); transition: transform 0.5s;">
+                        <path d="M0 0 Q 10 -10, 20 0 Q 10 10, 0 0" fill="#84A98C" transform="rotate(-45)" />
+                     </g>
+                     <g class="leaf-group" style="transform: translate(80%, 20px) scale(0); transition: transform 0.5s;">
+                        <path d="M0 0 Q 10 -10, 20 0 Q 10 10, 0 0" fill="#84A98C" transform="rotate(45)" />
+                     </g>
+                   </svg>
+                </div>
+                
+                <!-- Address Box -->
+                <div class="py-3 px-8 rounded-full shadow-2xl pointer-events-auto overflow-hidden border backdrop-blur-xl bg-white/95 border-green-100 text-[#2D4F1E] dark:bg-[#2D3A37]/95 dark:border-[#3E4E4A] dark:text-white dark:shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                    <div class="animate-marquee whitespace-nowrap flex items-center">
+                        <span class="mx-8 flex items-center gap-3 text-sm md:text-base font-medium tracking-wide"><i data-lucide="map-pin" class="w-4.5 h-4.5 text-[#E76F51]"></i> #​ ភូមិព្រែកកាត់​ សង្កាត់តាក្ដុល ក្រុងតាខ្មៅ ខេត្តកណ្ដាល</span>
+                        <span class="mx-8 flex items-center gap-3 text-sm md:text-base font-medium tracking-wide"><i data-lucide="map-pin" class="w-4.5 h-4.5 text-[#E76F51]"></i> #​ ភូមិព្រែកកាត់​ សង្កាត់តាក្ដុល ក្រុងតាខ្មៅ ខេត្តកណ្ដាល</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Draggable Chat Widget Container -->
+    <!-- Added id and inline styles for positioning -->
+    <div id="chat-widget-container" class="fixed z-[90] flex flex-col items-end touch-none" style="bottom: 24px; right: 24px;">
+        <!-- Chat Window (Always relative to container) -->
+        <div id="chat-window" class="hidden mb-4 w-[90vw] md:w-96 h-[60vh] max-h-[600px] bg-white rounded-[2rem] shadow-2xl flex flex-col overflow-hidden border border-green-100 animate-slideUp origin-bottom-right dark:shadow-[0_0_20px_rgba(255,255,255,0.05)] dark:bg-[#2D3A37] dark:border-[#3E4E4A]">
+            <div class="bg-gradient-to-r from-[#354F52] to-[#52796F] p-5 flex justify-between items-center text-white cursor-move" id="chat-header-drag">
+                <div class="flex items-center gap-4">
+                    <div class="bg-white/20 p-2.5 rounded-full backdrop-blur-sm">
+                        <i data-lucide="bot" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 id="chat-title" class="font-bold text-base md:text-lg">ជំនួយការ តាណូ (AI)</h3>
+                        <span class="text-xs text-green-100 flex items-center gap-1.5 opacity-90">
+                            <span class="w-2.5 h-2.5 bg-green-400 rounded-full animate-pulse"></span> <span id="chat-status">កំពុងដំណើរការ</span>
+                        </span>
+                    </div>
+                </div>
+                <button onclick="toggleChat()" class="hover:bg-white/20 p-2 rounded-full transition-colors"><i data-lucide="x" class="w-5.5 h-5.5"></i></button>
+            </div>
+            <div id="chat-messages" class="flex-1 bg-[#FAF9F6] dark:bg-[#1C2321] p-5 overflow-y-auto space-y-4">
+                <!-- Messages go here -->
+            </div>
+            <form onsubmit="handleChatSubmit(event)" class="p-4 bg-white dark:bg-[#2D3A37] border-t border-gray-100 dark:border-gray-700 flex gap-3">
+                <input id="chat-input" type="text" placeholder="សួរអ្វីមួយ..." class="flex-1 bg-gray-100 dark:bg-[#3E4E4A] dark:text-white rounded-full px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#84A98C] transition-shadow">
+                <button type="submit" class="bg-[#52796F] text-white p-3 rounded-full hover:bg-[#354F52] disabled:opacity-50 transition-colors shadow-md"><i data-lucide="send" class="w-5 h-5"></i></button>
+            </form>
+        </div>
+
+        <!-- Chat Toggle Button (Draggable Handle) -->
+        <button id="chat-toggle-btn" class="group bg-gradient-to-r from-[#354F52] to-[#52796F] text-white p-4 rounded-full shadow-2xl transition-all duration-300 hover:shadow-green-900/30 grab active:grabbing">
+            <i data-lucide="message-circle" class="w-8 h-8 pointer-events-none"></i>
+        </button>
+    </div>
+
+    <!-- Modals -->
+    <!-- Product Detail Modal -->
+    <div id="product-modal" class="hidden fixed inset-0 z-[100] flex items-end md:items-center justify-center p-0 md:p-6 animate-in fade-in duration-500">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-xl transition-opacity" onclick="closeModal('product-modal')"></div>
+        <div class="bg-white text-[#4A4E4D] w-full md:max-w-5xl h-[95vh] md:h-auto md:max-h-[85vh] md:rounded-[2.5rem] rounded-t-[2.5rem] shadow-2xl overflow-hidden relative z-10 flex flex-col md:flex-row animate-in slide-in-from-bottom-20 duration-700 dark:bg-[#2D3A37] dark:text-[#EAE8E2] dark:shadow-[0_0_30px_rgba(255,255,255,0.05)]">
+            <!-- JS will populate content here -->
+            <div id="modal-content" class="flex flex-col md:flex-row w-full h-full"></div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="hidden fixed inset-0 z-[100] flex items-end md:items-center justify-center p-0 md:p-6 animate-in fade-in duration-300">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-md transition-opacity" onclick="closeModal('cart-modal')"></div>
+        <div class="bg-white text-[#4A4E4D] w-full md:max-w-lg h-[90vh] md:h-auto md:max-h-[80vh] md:rounded-[2.5rem] rounded-t-[2.5rem] shadow-2xl overflow-hidden relative z-10 flex flex-col animate-in slide-in-from-bottom-20 duration-500 dark:bg-[#2D3A37] dark:text-[#EAE8E2]">
+            <div class="p-6 border-b border-gray-100 dark:border-[#3E4E4A] flex justify-between items-center">
+                <h2 id="cart-title" class="text-2xl font-bold">កន្ត្រកទំនិញ (Cart)</h2>
+                <button onclick="closeModal('cart-modal')" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-[#3E4E4A]"><i data-lucide="x" class="w-6 h-6"></i></button>
+            </div>
+            <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4">
+                <!-- Items injected here -->
+                <div class="text-center opacity-50 py-10" id="cart-empty-text">កន្ត្រកទំនិញនៅទំនេរ</div>
+            </div>
+            <div class="p-6 border-t border-gray-100 dark:border-[#3E4E4A] bg-gray-50 dark:bg-[#1C2321]">
+                <div class="flex justify-between items-center mb-6">
+                    <span id="cart-total-label" class="text-lg font-bold">សរុប (Total)</span>
+                    <span id="cart-total" class="text-3xl font-bold text-[#2D4F1E] dark:text-[#84A98C]">$0.00</span>
+                </div>
+                <button onclick="checkoutCart()" class="w-full bg-[#52796F] hover:bg-[#354F52] text-white py-4 rounded-xl font-bold text-lg shadow-lg active:scale-95 flex items-center justify-center gap-3">
+                    <i data-lucide="check-circle-2" class="w-6 h-6"></i> <span id="btn-checkout">គិតលុយ (Checkout)</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="payment-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-md" onclick="closeModal('payment-modal')"></div>
+        <div class="bg-[#005F7F] w-full max-w-sm rounded-[2.5rem] shadow-2xl overflow-hidden relative z-20 animate-in fade-in zoom-in duration-500 dark:shadow-[0_0_30px_rgba(255,255,255,0.05)]">
+            <!-- Header -->
+            <div class="bg-[#007ba4] p-8 text-center relative">
+                <div class="w-20 h-20 bg-white rounded-2xl mx-auto flex items-center justify-center mb-4 shadow-lg">
+                    <span class="text-[#005F7F] font-black text-3xl">ABA</span>
+                </div>
+                <h3 class="text-white font-bold text-2xl mb-1">KHQR Payment</h3>
+                <p id="payment-scan-text" class="text-white/80 text-sm">ស្កេន ឬ បើកកម្មវិធីដើម្បីបង់ប្រាក់</p>
+                <button onclick="closeModal('payment-modal')" class="absolute top-6 right-6 text-white/70 hover:text-white transition-colors"><i data-lucide="x" class="w-7 h-7"></i></button>
+            </div>
+            
+            <!-- Body -->
+            <div class="bg-white m-3 rounded-[2rem] p-8 flex flex-col items-center shadow-inner relative">
+                <!-- Success Overlay -->
+                <div id="payment-success-overlay" class="hidden absolute inset-0 z-30 bg-white/95 backdrop-blur flex flex-col items-center justify-center animate-in zoom-in rounded-[2rem]">
+                    <i data-lucide="check-circle-2" class="w-24 h-24 text-green-500 mb-6 animate-bounce"></i>
+                    <h3 id="payment-success-text" class="text-3xl font-bold text-green-800 mb-2">ការបង់ប្រាក់ជោគជ័យ!</h3>
+                    <div class="flex items-center gap-2 mt-6 text-green-700 font-medium bg-green-50 px-5 py-3 rounded-full border border-green-100">
+                        <i data-lucide="trees" class="w-5 h-5"></i> <span id="eco-text">+1 ដើមឈើត្រូវបានដាំសម្រាប់ការកុម្ម៉ង់នេះ</span>
+                    </div>
+                </div>
+
+                <div class="mb-6 text-center">
+                    <p id="merchant-label" class="text-gray-400 text-xs uppercase tracking-widest font-bold mb-1">Merchant Name</p>
+                    <h4 class="font-bold text-2xl text-gray-800 tracking-tight">TANO GARDEN</h4>
+                </div>
+
+                <div class="bg-white p-3 border-2 border-[#E31D1A] rounded-xl relative shadow-sm">
+                    <!-- Corners -->
+                    <div class="absolute top-0 left-0 w-6 h-6 border-t-4 border-l-4 border-[#E31D1A] -mt-1 -ml-1"></div>
+                    <div class="absolute top-0 right-0 w-6 h-6 border-t-4 border-r-4 border-[#E31D1A] -mt-1 -mr-1"></div>
+                    <div class="absolute bottom-0 left-0 w-6 h-6 border-b-4 border-l-4 border-[#E31D1A] -mb-1 -ml-1"></div>
+                    <div class="absolute bottom-0 right-0 w-6 h-6 border-b-4 border-r-4 border-[#E31D1A] -mb-1 -mr-1"></div>
+                    
+                    <img id="qr-code-img" src="" alt="ABA KHQR" class="w-56 h-56 transition-opacity duration-500">
+                    
+                    <!-- Loading Overlay -->
+                    <div id="payment-checking" class="hidden absolute inset-0 flex flex-col items-center justify-center bg-white/80">
+                        <i data-lucide="loader-2" class="w-10 h-10 text-[#005F7F] animate-spin mb-3"></i>
+                        <span id="detecting-text" class="text-[#005F7F] font-bold animate-pulse text-sm">Detecting...</span>
+                    </div>
+                </div>
+
+                <button onclick="window.location.href='https://www.payway.com.kh/'" class="mt-8 w-full bg-[#005F7F] hover:bg-[#004a63] text-white py-4 rounded-xl font-bold flex items-center justify-center gap-3 transition-colors active:scale-95 text-lg shadow-lg shadow-blue-900/20">
+                    <i data-lucide="smartphone" class="w-5.5 h-5.5"></i> <span id="btn-open-app">បើកកម្មវិធី ABA Mobile</span>
+                </button>
+
+                <button onclick="simulatePayment()" class="mt-4 text-xs text-gray-400 hover:text-[#005F7F] underline transition-colors">(Demo: Simulate Pay)</button>
+
+                <div class="mt-6 w-full flex items-center justify-between border-t border-dashed border-gray-300 pt-6">
+                    <span id="label-total" class="text-gray-500 font-medium">តម្លៃសរុប</span>
+                    <span id="payment-total" class="text-3xl font-bold text-[#E31D1A]">$0.00</span>
+                </div>
+            </div>
+
+            <!-- Footer Actions -->
+            <div class="px-6 pb-6 pt-2">
+                <button id="btn-send-telegram" onclick="sendOrder()" class="w-full py-4 rounded-xl font-bold text-lg shadow-lg transition-all flex items-center justify-center gap-3 active:scale-95 bg-white hover:bg-gray-100 text-[#005F7F]">
+                    <i data-lucide="send" class="w-5 h-5"></i> <span>ផ្ញើការកុម្ម៉ង់</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Promo Modal -->
+    <div id="promo-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 animate-in fade-in duration-300">
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="closeModal('promo-modal')"></div>
+        <div class="bg-white rounded-3xl p-8 max-w-md w-full relative z-10 shadow-2xl animate-in zoom-in-95 duration-300 dark:bg-[#2D3A37] dark:text-white">
+            <button onclick="closeModal('promo-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-white"><i data-lucide="x" class="w-6 h-6"></i></button>
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce">
+                    <i data-lucide="shopping-cart" class="w-8 h-8"></i>
+                </div>
+                <h3 id="promo-modal-title" class="text-2xl font-bold text-green-800 dark:text-[#84A98C]">ប្រូម៉ូសិនពិសេស!</h3>
+                <p id="promo-modal-offer" class="text-green-600 font-bold text-lg mt-1 dark:text-[#52796F]">ទិញ ៥០ ថែម ១</p>
+            </div>
+            <div class="space-y-4 text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                <p id="promo-desc" class="text-center font-medium">✨ ការផ្តល់ជូនពិសេសសម្រាប់អតិថិជនដែលទិញដើមឈើចាប់ពី ៥០ ដើមឡើងទៅ!</p>
+                <div class="bg-green-50 p-4 rounded-xl border border-green-100 dark:bg-[#1C2321] dark:border-[#3E4E4A]">
+                    <h4 id="promo-cond-title" class="font-bold text-green-800 dark:text-[#84A98C] mb-2">លក្ខខណ្ឌ:</h4>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li id="cond-1">សម្រាប់ការទិញក្នុងវិក្កយបត្រតែមួយ</li>
+                        <li id="cond-2">អនុវត្តចំពោះគ្រប់ប្រភេទដើមឈើ និងផ្កា</li>
+                        <li id="cond-3">ការថែមជូនគិតលើតម្លៃទាបបំផុតក្នុងវិក្កយបត្រ</li>
+                    </ul>
+                </div>
+            </div>
+            <button id="btn-close-promo" onclick="closeModal('promo-modal')" class="w-full mt-6 bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-bold shadow-lg shadow-green-200 transition-all">បិទ</button>
+        </div>
+    </div>
+    
+    <!-- Profile Modal (Fixed Design) -->
+    <div id="profile-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 animate-in fade-in duration-300">
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="closeModal('profile-modal')"></div>
+        <div class="bg-white rounded-[2.5rem] w-full max-w-lg relative z-10 shadow-2xl overflow-hidden dark:bg-[#2D3A37] dark:text-white transform transition-all flex flex-col max-h-[90vh]">
+             <!-- Scrollable Content with Cover Included (Fixes Clipping) -->
+             <div class="overflow-y-auto flex-1">
+                 <!-- Header / Cover -->
+                 <div class="h-32 bg-gradient-to-r from-[#1C2321] to-[#52796F] relative">
+                     <button onclick="closeModal('profile-modal')" class="absolute top-4 right-4 bg-black/20 hover:bg-black/40 text-white p-2 rounded-full backdrop-blur-sm transition-colors z-20"><i data-lucide="x" class="w-5 h-5"></i></button>
+                 </div>
+
+                 <div class="px-8 pb-8">
+                     <!-- Profile Pic overlapping cover -->
+                     <div class="-mt-16 mb-6 text-center relative z-10">
+                         <div class="w-32 h-32 mx-auto rounded-full border-[6px] border-white dark:border-[#2D3A37] shadow-xl overflow-hidden bg-white mb-4">
+                             <img src="dara1.jpg" class="w-full h-full object-cover">
+                         </div>
+                         <h3 class="text-3xl font-bold text-gray-800 dark:text-white">CHHON SOVANDARA</h3>
+                         <div class="flex items-center justify-center gap-2 text-[#52796F] dark:text-[#84A98C] font-medium mt-1">
+                            <i data-lucide="map-pin" class="w-4 h-4"></i> Phnom Penh, Cambodia
+                         </div>
+                     </div>
+
+                     <div class="space-y-6 text-left">
+                         <!-- About -->
+                         <div>
+                            <h4 class="text-lg font-bold border-b border-gray-100 dark:border-gray-700 pb-2 mb-3 text-[#E76F51]">About Me</h4>
+                            <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                                A diligent and forward-thinking Grade 12 student in Cambodia, actively preparing for university and a future career. Passionate about technology and science, and committed to achieving academic excellence.
+                            </p>
+                         </div>
+
+                         <!-- Education -->
+                         <div>
+                            <h4 class="text-lg font-bold border-b border-gray-100 dark:border-gray-700 pb-2 mb-3 text-[#E76F51]">Education</h4>
+                            <div class="bg-gray-50 dark:bg-[#1C2321] p-4 rounded-xl">
+                                <h5 class="font-bold text-gray-800 dark:text-white">High School Diploma </h5>
+                                <p class="text-sm text-[#52796F] font-semibold mb-2">Beltei International School</p>
+                                <div class="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                                    <p>Currently in Grade 12 (Final Year)</p>
+                                    <p><strong>Focus:</strong> Science Physics & Mathematics</p>
+                                </div>
+                            </div>
+                         </div>
+
+                         <!-- Skills & Goals -->
+                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                             <div>
+                                <h4 class="text-lg font-bold border-b border-gray-100 dark:border-gray-700 pb-2 mb-3 text-[#E76F51]">Skills</h4>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-gray-100 dark:bg-[#1C2321] rounded-full text-xs font-bold text-gray-600 dark:text-gray-300">Kind-hearted</span>
+                                    <span class="px-3 py-1 bg-gray-100 dark:bg-[#1C2321] rounded-full text-xs font-bold text-gray-600 dark:text-gray-300">Research</span>
+                                    <span class="px-3 py-1 bg-gray-100 dark:bg-[#1C2321] rounded-full text-xs font-bold text-gray-600 dark:text-gray-300">Team Projects</span>
+                                </div>
+                             </div>
+                             <div>
+                                <h4 class="text-lg font-bold border-b border-gray-100 dark:border-gray-700 pb-2 mb-3 text-[#E76F51]">Goals</h4>
+                                <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed italic">
+                                    "To pursue a degree in Computer Science and contribute to Cambodia's digital development."
+                                </p>
+                             </div>
+                         </div>
+                     </div>
+
+                     <div class="mt-8 pt-6 border-t border-gray-100 dark:border-gray-700 flex justify-center gap-4">
+                         <button onclick="closeModal('profile-modal')" class="px-8 py-3 rounded-xl bg-gray-900 text-white font-bold hover:bg-gray-800 transition-colors shadow-lg active:scale-95 dark:bg-[#52796F] dark:hover:bg-[#354F52]">Close</button>
+                     </div>
+                 </div>
+             </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-b from-[#2D3A37] to-[#1C2321] text-white pt-24 pb-32 rounded-t-[3rem] mt-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-16 relative z-10">
+            <div class="space-y-10">
+                <div class="p-10 rounded-[2.5rem] border-l-4 border-[#E76F51] relative overflow-hidden group hover:bg-white/5 transition-colors bg-[rgba(255,255,255,0.15)] backdrop-blur-[15px] border border-[rgba(255,255,255,0.2)] shadow-[0_4px_30px_rgba(0,0,0,0.1)]">
+                    <h2 id="footer-thank" class="text-3xl md:text-4xl font-bold mb-6 tracking-wide text-[#E76F51]">សូមអរគុណ</h2>
+                    <p id="footer-msg" class="text-white/80 text-lg leading-relaxed font-light italic">"ពួកយើងមានកិត្តិយសណាស់ដែលលោកអ្នកបានជ្រើសរើស ចម្ការតាណូ។ រាល់ការជាវរបស់លោកអ្នក គឺជាកម្លាំងចិត្តដ៏ធំធេងសម្រាប់ពួកយើង។"</p>
+                </div>
+                <div class="rounded-[2.5rem] overflow-hidden border-4 border-white/10 shadow-2xl h-64 md:h-72 relative group">
+                    <iframe width="100%" height="100%" frameborder="0" style="border:0" src="https://maps.google.com/maps?q=11.468869,104.928570&z=15&t=k&output=embed" allowfullscreen class="group-hover:opacity-90 transition-all duration-700"></iframe>
+                </div>
+
+                <!-- Developer Trigger Card (Footer Integration) -->
+                <div onclick="openModal('profile-modal')" class="mt-8 group cursor-pointer relative overflow-hidden rounded-2xl bg-white/5 border border-white/10 p-6 transition-all duration-500 hover:bg-white/10 hover:shadow-2xl hover:shadow-[#52796F]/20 hover:-translate-y-1">
+                    <div class="absolute -top-10 -right-10 w-20 h-20 bg-[#52796F] rounded-full blur-3xl opacity-0 group-hover:opacity-30 transition-opacity duration-700"></div>
+                    <div class="flex items-center gap-5 relative z-10">
+                        <div class="relative w-16 h-16 shrink-0">
+                            <div class="absolute inset-0 rounded-full border border-white/20 group-hover:border-[#E76F51] transition-colors duration-500"></div>
+                            <img src="dara1.jpg" class="w-full h-full rounded-full object-cover p-1">
+                        </div>
+                        <div class="flex-1 text-left">
+                            <p class="text-[10px] font-bold tracking-widest text-[#E76F51] uppercase mb-1 opacity-80">Profile</p>
+                            <h3 class="text-lg font-bold text-white leading-tight group-hover:text-green-100 transition-colors">CHHON SOVANDARA</h3>
+                            <p class="text-xs text-gray-400 mt-1 line-clamp-1 group-hover:text-gray-300 transition-colors">"Passionate learner..."</p>
+                        </div>
+                        <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#E76F51] group-hover:text-white transition-all duration-300 transform group-hover:translate-x-1">
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col justify-center space-y-8">
+                <h3 id="footer-contact" class="text-3xl font-bold mb-4 border-b border-white/20 pb-4 inline-block w-max">ទំនាក់ទំនងយើងខ្ញុំ</h3>
+                <a href="https://t.me/koyches" target="_blank" rel="noreferrer" class="group flex items-center justify-between bg-[#0088CC] hover:bg-[#0077B5] text-white p-5 rounded-2xl transition-all hover:scale-[1.02] shadow-xl">
+                    <div class="flex items-center gap-5">
+                        <div class="bg-white/20 p-3.5 rounded-full"><i data-lucide="send" class="w-7 h-7"></i></div>
+                        <div><p id="chat-telegram-label" class="text-xs text-blue-100 font-medium uppercase tracking-wider">Chat on Telegram</p><p class="text-2xl font-bold tracking-tight">@koyches</p></div>
+                    </div>
+                    <i data-lucide="check-circle-2" class="w-7 h-7 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                </a>
+                <div class="flex gap-6">
+                    <a href="https://www.facebook.com/share/14RfofRvpqR/" target="_blank" class="flex-1 bg-white/5 hover:bg-white/10 p-6 rounded-2xl flex items-center justify-center gap-3 transition-colors border border-white/5">
+                        <i data-lucide="facebook" class="w-6 h-6"></i> <span id="facebook-label" class="font-bold">Facebook</span>
+                    </a>
+                </div>
+                <div class="mt-12 text-center md:text-left text-[#84A98C] text-sm font-medium tracking-wide">© 2025 TANO Garden. All Rights Reserved.</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Logic Script -->
+    <script>
+        // Data
+        const PLANTS_DATA = [
+            { id: 1, name: 'ដើមស្វាយ (Mango)', name_en: 'Mango Tree', price: '$5.00', category: 'plant', description: 'ពូជស្វាយកែវរមៀត ផ្លែធំ ផ្អែមឆ្ងាញ់។ ធន់នឹងអាកាសធាតុ។ ស័ក្តិសមសម្រាប់ដាំក្នុងចម្ការ ឬក្នុងបរិវេណផ្ទះ។', description_en: 'Keo Romeat mango variety, big fruit, sweet taste. Weather resistant. Suitable for planting in farms or home gardens.', image: 'https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&q=80&w=800' },
+            { id: 2, name: 'ដើមដូង (Coconut)', name_en: 'Coconut Tree', price: '$8.50', category: 'plant', description: 'ដូងក្រអូប ទឹកច្រើន សាច់ទន់។ ដាំងាយស្រួល។ ផ្តល់ផលលឿន និងជាម្លប់ដ៏ត្រជាក់ត្រជុំ។', description_en: 'Aromatic coconut, lots of water, soft meat. Easy to plant. Fast yielding and provides great shade.', image: 'https://images.unsplash.com/photo-1541855959-1582e389d4cb?auto=format&fit=crop&q=80&w=800' },
+            { id: 3, name: 'ដើមក្រូច (Orange)', name_en: 'Orange Tree', price: '$6.00', category: 'plant', description: 'ក្រូចពោធិ៍សាត់ រសជាតិជូរអែម សម្បូរវីតាមីន C។ ងាយស្រួលថែទាំ និងមានក្លិនក្រអូបពីស្លឹក។', description_en: 'Pursat orange, sweet and sour taste, rich in Vitamin C. Easy to care for and has fragrant leaves.', image: 'https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b?auto=format&fit=crop&q=80&w=800' },
+            { id: 4, name: 'ដើមខ្នុរ (Jackfruit)', name_en: 'Jackfruit Tree', price: '$7.00', category: 'plant', description: 'ខ្នុរណាំង ផ្លែធំ សាច់ក្រាស់ ផ្អែមខ្លាំង។ ធន់នឹងជំងឺ និងសត្វល្អិត។', description_en: 'Nang jackfruit, large fruit, thick meat, very sweet. Resistant to diseases and pests.', image: 'https://images.unsplash.com/photo-1594002693722-e3d16e45b46e?auto=format&fit=crop&q=80&w=800' },
+            { id: 5, name: 'ទុរេន (Durian)', name_en: 'Durian Tree', price: '$15.00', category: 'plant', description: 'ពូជម៉ាន់ថង សាច់លឿង គ្រាប់តូច។ រសជាតិផ្អែមមុត នឹងក្លិនឈ្ងុយពិសេស។', description_en: 'Monthong variety, yellow meat, small seeds. Sharp sweet taste and special aroma.', image: 'https://images.unsplash.com/photo-1587334206596-f952f447a956?auto=format&fit=crop&q=80&w=800' },
+            { id: 6, name: 'ឬស្សី (Bamboo)', name_en: 'Bamboo', price: '$4.00', category: 'plant', description: 'ឬស្សីផ្អែម សម្រាប់លម្អ ឬយកទំពាំង។ ជួយបង្កើតបរិយាកាសធម្មជាតិ និងខ្យល់បរិសុទ្ធ។', description_en: 'Sweet bamboo for decoration or shoots. Helps create a natural atmosphere and fresh air.', image: 'https://images.unsplash.com/photo-1598544837330-d380962a4d33?auto=format&fit=crop&q=80&w=800' }
+        ];
+        const FLOWERS_DATA = [
+            { id: 101, name: 'ផ្កាម្លិះ (Jasmine)', name_en: 'Jasmine', price: '$2.00', category: 'flower', description: 'ក្លិនក្រអូបប្រហើរ សម្រាប់ថ្វាយព្រះ ឬលម្អផ្ទះ។ ផ្កាពណ៌សបរិសុទ្ធ តំណាងឱ្យសេចក្តីគោរព។', description_en: 'Fragrant scent for worship or home decoration. Pure white flower representing respect.', image: 'https://images.unsplash.com/photo-1592658396593-3d0628292854?auto=format&fit=crop&q=80&w=800' },
+            { id: 102, name: 'ផ្កាកុលាប (Rose)', name_en: 'Rose', price: '$3.50', category: 'flower', description: 'កុលាបក្រហម តំណាងក្តីស្រលាញ់។ មានសម្រស់ស្រស់ស្អាត និងធន់នឹងកំដៅថ្ងៃ។', description_en: 'Red rose representing love. Beautiful and heat resistant.', image: 'https://images.unsplash.com/photo-1496062031456-07b8f162a322?auto=format&fit=crop&q=80&w=800' },
+            { id: 103, name: 'ផ្កាឈូក (Lotus)', name_en: 'Lotus', price: '$1.50', category: 'flower', description: 'ផ្កាឈូកស្រស់ ពណ៌ផ្កាឈូកស្រាល ស្រស់ស្អាត។ ជានិមិត្តរូបនៃភាពបរិសុទ្ធក្នុងវប្បធម៌ខ្មែរ។', description_en: 'Fresh lotus, light pink, beautiful. A symbol of purity in Khmer culture.', image: 'https://images.unsplash.com/photo-1588612574512-42173b222956?auto=format&fit=crop&q=80&w=800' },
+            { id: 104, name: 'ផ្កាអ័រគីដេ (Orchid)', name_en: 'Orchid', price: '$12.00', category: 'flower', description: 'អ័រគីដេព្រៃ ធន់នឹងកំដៅ ចេញផ្កាបានយូរ។ មានពណ៌ចម្រុះ និងទម្រង់ផ្កាដ៏ទាក់ទាញ។', description_en: 'Wild orchid, heat resistant, long blooming. Colorful and attractive flower shape.', image: 'https://images.unsplash.com/photo-1566933220792-72212d264585?auto=format&fit=crop&q=80&w=800' },
+            { id: 105, name: 'ផ្កាឈូករ័ត្ន (Sunflower)', name_en: 'Sunflower', price: '$2.50', category: 'flower', description: 'រុក្ខជាតិដែលចូលចិត្តពន្លឺព្រះអាទិត្យ។ ផ្កាពណ៌លឿងធំ បង្កើនភាពស្រស់ស្រាយដល់សួនច្បារ។', description_en: 'Plant that loves sunlight. Large yellow flowers add freshness to the garden.', image: 'https://images.unsplash.com/photo-1470509037663-253afd7f0f51?auto=format&fit=crop&q=80&w=800' },
+            { id: 106, name: 'ផ្កាចំប៉ា (Plumeria)', name_en: 'Plumeria', price: '$5.00', category: 'flower', description: 'ក្លិនក្រអូប ស្រស់ស្រាយ ងាយស្រួលដាំ។ ដើមធំ ផ្តល់ម្លប់ និងផ្កាពេញមួយឆ្នាំ។', description_en: 'Fragrant, fresh, easy to plant. Big tree provides shade and flowers all year round.', image: 'https://images.unsplash.com/photo-1596726618306-384da18b2677?auto=format&fit=crop&q=80&w=800' },
+            { id: 107, name: 'ផ្កាស្បៃរឿង (Marigold)', name_en: 'Marigold', price: '$1.00', category: 'flower', description: 'ពណ៌លឿងស្រស់ នាំសំណាង។', description_en: 'Bright yellow, brings good luck.', image: 'https://images.unsplash.com/photo-1606041011872-596597976b25?auto=format&fit=crop&q=80&w=800' }
+        ];
+
+        const TRANSLATIONS = {
+            kh: {
+                title: 'ចម្ការតាណូ',
+                searchPlaceholder: 'ស្វែងរក រុក្ខជាតិ ឬ ផ្កា...',
+                heroTitle: 'នាំយកធម្មជាតិ ចូលក្នុងផ្ទះរបស់អ្នក',
+                heroSubtitle: 'ផ្តល់ជូននូវរុក្ខជាតិ និងផ្កាស្រស់ៗពីចម្ការផ្ទាល់ ជាមួយនឹងតម្លៃសមរម្យ និងសេវាកម្មដឹកជញ្ជូនរហ័សទាន់ចិត្ត។',
+                natureBadge: 'ធម្មជាតិពិតៗ ១០០%',
+                promoTitle: 'ទិញ ៥០ ថែម ១',
+                promoSubtitle: 'ការផ្តល់ជូនពិសេស',
+                plants: 'រុក្ខជាតិ',
+                flowers: 'ផ្កា',
+                noData: 'មិនមានទិន្នន័យ...',
+                clickDetails: 'ចុចដើម្បីមើលលម្អិត',
+                chatTitle: 'ជំនួយការ តាណូ (AI)',
+                chatOnline: 'កំពុងដំណើរការ',
+                chatPlaceholder: 'សួរអ្វីមួយ...',
+                deliveryInfo: 'ព័ត៌មានដឹកជញ្ជូន',
+                phonePlaceholder: 'លេខទូរស័ព្ទរបស់អ្នក',
+                addressPlaceholder: 'ទីតាំង ឬ អាសយដ្ឋានដឹកជញ្ជូន',
+                quantity: 'ចំនួន',
+                total: 'តម្លៃសរុប',
+                checkout: 'បន្តទៅការទូទាត់',
+                scanPay: 'ស្កេន ឬ បើកកម្មវិធីដើម្បីបង់ប្រាក់',
+                paymentSuccess: 'ការបង់ប្រាក់ជោគជ័យ!',
+                openApp: 'បើកកម្មវិធី ABA Mobile',
+                sendOrder: 'ផ្ញើការកុម្ម៉ង់',
+                sendPaidOrder: 'ផ្ញើការកុម្ម៉ង់ (បានបង់ប្រាក់)',
+                thankYou: 'សូមអរគុណ',
+                thankYouMessage: 'ពួកយើងមានកិត្តិយសណាស់ដែលលោកអ្នកបានជ្រើសរើស ចម្ការតាណូ។ រាល់ការជាវរបស់លោកអ្នក គឺជាកម្លាំងចិត្តដ៏ធំធេងសម្រាប់ពួកយើង។',
+                contactUs: 'ទំនាក់ទំនងយើងខ្ញុំ',
+                aiTipBtn: 'សួរ AI ពីវិធីថែទាំ',
+                aiTipTitle: 'គន្លឹះថែទាំពី AI',
+                share: 'ចែករំលែក',
+                plantDoctor: 'AI ពេទ្យរុក្ខជាតិ',
+                gardenPlanner: 'រៀបចំសួនច្បារ',
+                community: 'សហគមន៍អ្នកដាំ',
+                plantDoctorDesc: 'AI Diagnosis',
+                gardenPlannerDesc: 'Layout Tool',
+                communityDesc: 'Photo Gallery',
+                plantOfTheDay: 'រុក្ខជាតិប្រចាំថ្ងៃ',
+                ecoImpact: '+1 ដើមឈើត្រូវបានដាំសម្រាប់ការកុម្ម៉ង់នេះ',
+                testimonialsTitle: 'មតិពីអតិថិជន',
+                verified: 'បានទិញពិត',
+                addToCart: 'ដាក់ចូលកន្ត្រក',
+                aboutTitle: 'អំពីចម្ការយើង',
+                aboutDesc: 'ចម្ការតាណូ ត្រូវបានបង្កើតឡើងដោយក្តីស្រលាញ់ចំពោះធម្មជាតិ។ យើងដាំដុះដោយយកចិត្តទុកដាក់ ដោយមិនប្រើប្រាស់សារធាតុគីមី ដើម្បីធានាថាអ្នកទទួលបាននូវភាពស្រស់ស្រាយពិតៗ។',
+                feat1: '100% ធម្មជាតិ',
+                feat2: 'ដាំដុះក្នុងស្រុក',
+                feat3: 'គ្មានសារធាតុគីមី',
+                feat4: 'ស្រស់ពីចម្ការ',
+                tipsTitle: 'គន្លឹះថែរុក្ខជាតិ',
+                tipsSubtitle: 'ចំណេះដឹងល្អៗសម្រាប់ការដាំដុះ',
+                tip1Title: 'ពន្លឺព្រះអាទិត្យ',
+                tip1Desc: 'រុក្ខជាតិភាគច្រើនត្រូវការពន្លឺព្រឹកយ៉ាងតិច ៤-៦ ម៉ោង។',
+                tip2Title: 'ការស្រោចទឹក',
+                tip2Desc: 'ស្រោចទឹកនៅពេលដីស្ងួត។ ចៀសវាងការស្រោចទឹកច្រើនពេក។',
+                tip3Title: 'ជីជាតិ',
+                tip3Desc: 'ប្រើប្រាស់ជីធម្មជាតិរៀងរាល់ ២ សប្តាហ៍ម្តង ដើម្បីឲ្យលូតលាស់ល្អ។',
+                faqTitle: 'សំណួរដែលសួរញឹកញាប់ (FAQ)',
+                faq1Q: 'តើមានសេវាដឹកជញ្ជូនដែរឬទេ?',
+                faq1A: 'បាទ/ចាស! យើងមានសេវាដឹកជញ្ជូន ២៥ ខេត្តក្រុង។ តម្លៃដឹកអាស្រ័យលើទីតាំងជាក់ស្តែង។',
+                faq2Q: 'តើរុក្ខជាតិងាប់អាចប្តូរបានទេ?',
+                faq2A: 'យើងធានារុក្ខជាតិក្នុងរយៈពេល ៣ ថ្ងៃបន្ទាប់ពីទទួលបាន។ ប្រសិនបើមានបញ្ហា សូមថតរូបមកកាន់យើងខ្ញុំ។',
+                sortLabel: 'តម្រៀបតាម:',
+                sortAsc: 'តម្លៃ ទាប-ខ្ពស់',
+                sortDesc: 'តម្លៃ ខ្ពស់-ទាប',
+                cartTitle: 'កន្ត្រកទំនិញ (Cart)',
+                cartEmpty: 'កន្ត្រកទំនិញនៅទំនេរ',
+                merchantName: 'Merchant Name',
+                detecting: 'កំពុងត្រួតពិនិត្យ...',
+                simulatePay: '(Demo: ចុចដើម្បីបង់ប្រាក់)',
+                promoModalTitle: 'ប្រូម៉ូសិនពិសេស!',
+                promoModalOffer: 'ទិញ ៥០ ថែម ១',
+                promoDesc: '✨ ការផ្តល់ជូនពិសេសសម្រាប់អតិថិជនដែលទិញដើមឈើចាប់ពី ៥០ ដើមឡើងទៅ!',
+                promoCondTitle: 'លក្ខខណ្ឌ:',
+                cond1: 'សម្រាប់ការទិញក្នុងវិក្កយបត្រតែមួយ',
+                cond2: 'អនុវត្តចំពោះគ្រប់ប្រភេទដើមឈើ និងផ្កា',
+                cond3: 'ការថែមជូនគិតលើតម្លៃទាបបំផុតក្នុងវិក្កយបត្រ',
+                btnClose: 'បិទ',
+                chatTelegramLabel: 'Chat on Telegram',
+                facebookLabel: 'Facebook',
+                specialBadge: 'ពិសេស',
+                angle2: 'មុំទី ២',
+                angle3: 'មុំទី ៣',
+                arView: 'មើលជា AR'
+            },
+            en: {
+                title: 'Tano Garden',
+                searchPlaceholder: 'Search plants or flowers...',
+                heroTitle: 'Bring Nature Into Your Home',
+                heroSubtitle: 'Providing fresh plants and flowers directly from the farm with reasonable prices and fast delivery service.',
+                natureBadge: '100% Real Nature',
+                promoTitle: 'Buy 50 Get 1 Free',
+                promoSubtitle: 'Special Offer',
+                plants: 'Plants',
+                flowers: 'Flowers',
+                noData: 'No items found...',
+                clickDetails: 'Click for details',
+                chatTitle: 'Tano AI Assistant',
+                chatOnline: 'Online',
+                chatPlaceholder: 'Ask something...',
+                deliveryInfo: 'Delivery Info',
+                phonePlaceholder: 'Your Phone Number',
+                addressPlaceholder: 'Delivery Location/Address',
+                quantity: 'Quantity',
+                total: 'Total',
+                checkout: 'Proceed to Checkout',
+                scanPay: 'Scan or Open App to Pay',
+                paymentSuccess: 'Payment Successful!',
+                openApp: 'Open ABA Mobile App',
+                sendOrder: 'Send Order',
+                sendPaidOrder: 'Send Paid Order',
+                thankYou: 'Thank You',
+                thankYouMessage: 'We are honored that you chose Tano Garden. Your purchase is a great encouragement for us to maintain quality and service.',
+                contactUs: 'Contact Us',
+                aiTipBtn: 'Ask AI for Care Tips',
+                aiTipTitle: 'AI Care Tips',
+                share: 'Share',
+                plantDoctor: 'Plant Doctor AI',
+                gardenPlanner: 'Garden Planner',
+                community: 'Community',
+                plantDoctorDesc: 'AI Diagnosis',
+                gardenPlannerDesc: 'Layout Tool',
+                communityDesc: 'Photo Gallery',
+                plantOfTheDay: 'Plant of the Day',
+                ecoImpact: '+1 Tree Planted with This Order',
+                testimonialsTitle: 'Words from our Community',
+                verified: 'Verified Buyer',
+                addToCart: 'Add to Cart',
+                aboutTitle: 'About Our Farm',
+                aboutDesc: 'Tano Garden was founded with a love for nature. We grow with care, without using chemicals, to ensure you receive true freshness.',
+                feat1: '100% Natural',
+                feat2: 'Locally Grown',
+                feat3: 'Chemical Free',
+                feat4: 'Fresh from Farm',
+                tipsTitle: 'Plant Care Tips',
+                tipsSubtitle: 'Great knowledge for planting',
+                tip1Title: 'Sunlight',
+                tip1Desc: 'Most plants need at least 4-6 hours of morning sunlight.',
+                tip2Title: 'Watering',
+                tip2Desc: 'Water when the soil is dry. Avoid overwatering.',
+                tip3Title: 'Fertilizer',
+                tip3Desc: 'Use natural fertilizer every 2 weeks for good growth.',
+                faqTitle: 'Frequently Asked Questions (FAQ)',
+                faq1Q: 'Is there a delivery service?',
+                faq1A: 'Yes! We deliver to 25 provinces/cities. Delivery fee depends on actual location.',
+                faq2Q: 'Can dead plants be exchanged?',
+                faq2A: 'We guarantee plants within 3 days after receipt. If there is a problem, please take a photo and send it to us.',
+                sortLabel: 'Sort by:',
+                sortAsc: 'Price Low-High',
+                sortDesc: 'Price High-Low',
+                cartTitle: 'Shopping Cart',
+                cartEmpty: 'Cart is empty',
+                merchantName: 'Merchant Name',
+                detecting: 'Detecting...',
+                simulatePay: '(Demo: Simulate Pay)',
+                promoModalTitle: 'Special Promotion!',
+                promoModalOffer: 'Buy 50 Get 1 Free',
+                promoDesc: '✨ Special offer for customers who buy 50 or more trees!',
+                promoCondTitle: 'Conditions:',
+                cond1: 'For single receipt purchase',
+                cond2: 'Applies to all types of trees and flowers',
+                cond3: 'Free item based on lowest price in receipt',
+                btnClose: 'Close',
+                chatTelegramLabel: 'Chat on Telegram',
+                facebookLabel: 'Facebook',
+                specialBadge: 'Special',
+                angle2: 'Angle 2',
+                angle3: 'Angle 3',
+                arView: 'AR View'
+            }
+        };
+
+        // State
+        let activeCategory = 'plant';
+        let searchQuery = '';
+        let selectedItem = null;
+        let orderQuantity = 1;
+        let isDarkMode = false;
+        let language = 'kh';
+        let paymentStatus = 'pending';
+        let deliveryPhone = '';
+        let deliveryAddress = '';
+        let chatMessages = [{ role: 'assistant', text: TRANSLATIONS[language].chatTitle + "..." }];
+        let cart = []; 
+
+        // Helper for safe setting text
+        function setText(id, text) {
+            const el = document.getElementById(id);
+            if(el) el.innerText = text;
+        }
+
+        // Initialization
+        window.addEventListener('DOMContentLoaded', () => {
+            renderPlantOfTheDay();
+            renderProducts();
+            updateLanguageUI();
+            updateCartBadge();
+            lucide.createIcons();
+            
+            // Scroll Listener
+            window.addEventListener('scroll', () => {
+                const nav = document.getElementById('navbar');
+                const vinePath = document.getElementById('vine-path');
+                const catSticky = document.getElementById('category-sticky');
+                const footer = document.querySelector('footer');
+                
+                // Parallax
+                const blobs = document.querySelectorAll('.parallax-blob');
+                blobs.forEach(blob => {
+                   const speed = blob.getAttribute('data-speed');
+                   blob.style.transform = `translateY(${window.scrollY * speed}px)`;
+                });
+
+                if (footer) {
+                    const rect = footer.getBoundingClientRect();
+                    if (rect.top < window.innerHeight) {
+                        catSticky.classList.add('opacity-0', '-translate-y-full', 'pointer-events-none');
+                    } else {
+                        catSticky.classList.remove('opacity-0', '-translate-y-full', 'pointer-events-none');
+                    }
+                }
+
+                if (window.scrollY > 20) {
+                    nav.classList.add('glass-nav', 'py-3', 'shadow-sm');
+                    nav.classList.remove('bg-transparent', 'py-6');
+                    if(isDarkMode) {
+                       nav.classList.add('bg-[#1C2321]/90', 'border-[#2D3A37]');
+                    } else {
+                       nav.classList.add('bg-[#FAF9F6]/90', 'border-[#EAE8E2]');
+                    }
+                } else {
+                    nav.classList.remove('glass-nav', 'py-3', 'shadow-sm', 'bg-[#FAF9F6]/90', 'bg-[#1C2321]/90');
+                    nav.classList.add('bg-transparent', 'py-6');
+                }
+
+                // Vine Animation
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = docHeight > 0 ? Math.min(Math.max(scrollTop / docHeight, 0), 1) : 0;
+                
+                if(vinePath) {
+                    const dashOffset = 1000 - (scrollPercent * 1000);
+                    vinePath.style.strokeDashoffset = dashOffset;
+                }
+                
+                // Animate Leaves
+                const leaves = document.querySelectorAll('.leaf-group');
+                leaves.forEach((leaf, idx) => {
+                    const threshold = 0.2 + (idx * 0.2);
+                    if (scrollPercent > threshold) {
+                       leaf.style.transform = leaf.style.transform.replace('scale(0)', 'scale(1)');
+                    } else {
+                       leaf.style.transform = leaf.style.transform.replace('scale(1)', 'scale(0)');
+                    }
+                });
+            });
+
+            // Input Listeners
+            const searchInputs = [document.getElementById('desktop-search'), document.getElementById('mobile-search')];
+            searchInputs.forEach(input => {
+                if(input) {
+                    input.addEventListener('input', (e) => {
+                        searchQuery = e.target.value;
+                        toggleBottomDecor(searchQuery.length > 0);
+                        renderProducts();
+                    });
+                    input.addEventListener('focus', () => toggleBottomDecor(true));
+                    input.addEventListener('blur', () => {
+                         if(searchQuery.length === 0) toggleBottomDecor(false);
+                    });
+                }
+            });
+            
+            // Keyboard Nav
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') setCategory('plant');
+                if (e.key === 'ArrowRight') setCategory('flower');
+            });
+
+            // Draggable Logic
+            initDraggable();
+        });
+
+        // Toggle Bottom Decor (Search Logic)
+        function toggleBottomDecor(hide) {
+            const decor = document.getElementById('bottom-decor');
+            if(hide) {
+                decor.classList.add('opacity-0', 'pointer-events-none');
+            } else {
+                decor.classList.remove('opacity-0', 'pointer-events-none');
+            }
+        }
+        
+        function focusSearch() {
+            document.getElementById('mobile-search').focus();
+        }
+
+        // Draggable Logic
+        function initDraggable() {
+            const container = document.getElementById('chat-widget-container');
+            const handle = document.getElementById('chat-toggle-btn');
+            const header = document.getElementById('chat-header-drag');
+
+            let isDragging = false;
+            let startX, startY, initialLeft, initialTop;
+
+            const startDrag = (e) => {
+                if(e.target.closest('button') && !e.target.closest('#chat-toggle-btn') && !e.target.closest('#chat-header-drag')) return; // prevent blocking other clicks inside
+                
+                isDragging = true;
+                const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+                const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+                
+                startX = clientX;
+                startY = clientY;
+                
+                const rect = container.getBoundingClientRect();
+                initialLeft = rect.left;
+                initialTop = rect.top;
+
+                handle.classList.add('grabbing');
+                if(header) header.classList.add('grabbing');
+            };
+
+            const doDrag = (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                
+                const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+                const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+
+                const dx = clientX - startX;
+                const dy = clientY - startY;
+
+                container.style.left = `${initialLeft + dx}px`;
+                container.style.top = `${initialTop + dy}px`;
+                container.style.right = 'auto';
+                container.style.bottom = 'auto';
+            };
+
+            const stopDrag = () => {
+                isDragging = false;
+                handle.classList.remove('grabbing');
+                if(header) header.classList.remove('grabbing');
+            };
+
+            handle.addEventListener('mousedown', startDrag);
+            handle.addEventListener('touchstart', startDrag);
+            if(header) {
+                header.addEventListener('mousedown', startDrag);
+                header.addEventListener('touchstart', startDrag);
+            }
+
+            document.addEventListener('mousemove', doDrag);
+            document.addEventListener('touchmove', doDrag, { passive: false });
+
+            document.addEventListener('mouseup', stopDrag);
+            document.addEventListener('touchend', stopDrag);
+        }
+
+        // --- CART LOGIC ---
+        function addToCart() {
+            if (!selectedItem) return;
+            
+            // Capture inputs from modal before closing
+            const phoneInput = document.getElementById('del-phone');
+            const addrInput = document.getElementById('del-address');
+            if(phoneInput) deliveryPhone = phoneInput.value;
+            if(addrInput) deliveryAddress = addrInput.value;
+
+            const existingItem = cart.find(item => item.id === selectedItem.id);
+            if (existingItem) {
+                existingItem.qty += orderQuantity;
+            } else {
+                cart.push({ ...selectedItem, qty: orderQuantity });
+            }
+            updateCartBadge();
+            closeModal('product-modal');
+            
+            // Simple visual feedback
+            const cartBtn = document.querySelector('button[onclick="openCart()"]');
+            cartBtn.classList.add('scale-125');
+            setTimeout(() => cartBtn.classList.remove('scale-125'), 200);
+        }
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cart-badge');
+            const count = cart.reduce((acc, item) => acc + item.qty, 0);
+            if(badge) {
+                badge.innerText = count;
+                badge.classList.toggle('opacity-0', count === 0);
+            }
+        }
+
+        function openCart() {
+            renderCartItems();
+            openModal('cart-modal');
+        }
+
+        function renderCartItems() {
+            const container = document.getElementById('cart-items');
+            const t = TRANSLATIONS[language];
+            if (cart.length === 0) {
+                container.innerHTML = `<div class="text-center opacity-50 py-10">${t.cartEmpty}</div>`;
+                setText('cart-total', '$0.00');
+                return;
+            }
+
+            let total = 0;
+            container.innerHTML = cart.map((item, index) => {
+                const itemTotal = parseFloat(item.price.replace('$', '')) * item.qty;
+                total += itemTotal;
+                const itemName = language === 'kh' ? item.name : item.name_en;
+                return `
+                <div class="flex gap-4 items-center bg-gray-50 dark:bg-[#1C2321] p-3 rounded-xl">
+                    <img src="${item.image}" class="w-16 h-16 rounded-lg object-cover">
+                    <div class="flex-1">
+                        <h4 class="font-bold text-sm">${itemName}</h4>
+                        <p class="text-xs text-gray-500">${item.price} x ${item.qty}</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="font-bold text-green-600">$${itemTotal.toFixed(2)}</p>
+                        <button onclick="removeFromCart(${index})" class="text-red-400 text-xs hover:text-red-600">Remove</button>
+                    </div>
+                </div>
+                `;
+            }).join('');
+            setText('cart-total', '$' + total.toFixed(2));
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            renderCartItems();
+            updateCartBadge();
+        }
+
+        function checkoutCart() {
+            if (cart.length === 0) return;
+            // Calculate total based on cart
+            let total = 0;
+            cart.forEach(item => total += parseFloat(item.price.replace('$', '')) * item.qty);
+            
+            // Set payment modal data
+            setText('payment-total', '$' + total.toFixed(2));
+            const qrImg = document.getElementById('qr-code-img');
+            if(qrImg) qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://t.me/koyches&color=000000`;
+            
+            closeModal('cart-modal');
+            openModal('payment-modal');
+        }
+
+        // --- SORTING LOGIC ---
+        function sortProducts(criteria) {
+            const data = activeCategory === 'plant' ? PLANTS_DATA : FLOWERS_DATA;
+            if (criteria === 'price-asc') {
+                data.sort((a, b) => parseFloat(a.price.replace('$', '')) - parseFloat(b.price.replace('$', '')));
+            } else if (criteria === 'price-desc') {
+                data.sort((a, b) => parseFloat(b.price.replace('$', '')) - parseFloat(a.price.replace('$', '')));
+            }
+            renderProducts(); // Re-render sorted list
+        }
+
+        // Functions
+        function setCategory(cat) {
+            activeCategory = cat;
+            
+            // Update Buttons
+            const btnPlant = document.getElementById('btn-plant');
+            const btnFlower = document.getElementById('btn-flower');
+            
+            if (cat === 'plant') {
+                btnPlant.className = `flex-1 flex items-center justify-center gap-2 py-3 rounded-full text-base font-bold transition-all duration-500 bg-white text-[#354F52] shadow-sm transform scale-100 dark:bg-[#52796F] dark:text-white`;
+                btnFlower.className = `flex-1 flex items-center justify-center gap-2 py-3 rounded-full text-base font-bold transition-all duration-500 text-gray-500 hover:text-[#E76F51] dark:text-gray-400`;
+            } else {
+                btnFlower.className = `flex-1 flex items-center justify-center gap-2 py-3 rounded-full text-base font-bold transition-all duration-500 bg-white text-[#E76F51] shadow-sm transform scale-100 dark:bg-[#E76F51] dark:text-white`;
+                btnPlant.className = `flex-1 flex items-center justify-center gap-2 py-3 rounded-full text-base font-bold transition-all duration-500 text-gray-500 hover:text-[#354F52] dark:text-gray-400`;
+            }
+            
+            renderProducts();
+        }
+
+        function renderProducts() {
+            const container = document.getElementById('product-grid');
+            if(!container) return;
+            const data = activeCategory === 'plant' ? PLANTS_DATA : FLOWERS_DATA;
+            const filtered = data.filter(item => {
+                const searchLower = searchQuery.toLowerCase();
+                return item.name.toLowerCase().includes(searchLower) || (item.name_en && item.name_en.toLowerCase().includes(searchLower));
+            });
+            
+            const t = TRANSLATIONS[language];
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="col-span-full text-center py-32 opacity-50 flex flex-col items-center"><i data-lucide="leaf" class="w-16 h-16 text-gray-300 mb-6"></i><p class="text-2xl text-gray-400 font-bold">${t.noData}</p></div>`;
+                lucide.createIcons();
+                return;
+            }
+
+            container.innerHTML = filtered.map((item, index) => {
+                const displayName = language === 'kh' ? item.name : item.name_en;
+                return `
+                <div onclick="openProductModal(${item.id})" class="group relative rounded-[2.5rem] overflow-hidden shadow-sm transition-all duration-700 cursor-pointer transform hover:-translate-y-3 hover-blur-bg border flex flex-col h-full animate-fadeInUp bg-white border-transparent hover:shadow-lg dark:bg-[#2D3A37] dark:border-[#3E4E4A] dark:shadow-[0_0_20px_rgba(255,255,255,0.05)]" style="animation-delay: ${index * 150}ms">
+                    <div class="relative aspect-[3/4] overflow-hidden">
+                        <img src="${item.image}" alt="${displayName}" loading="lazy" class="bg-image w-full h-full object-cover transition-transform duration-[1.5s] ease-out scale-105 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-700"></div>
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 water-droplet pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-700 transform translate-y-0 group-hover:translate-y-4">
+                             <i data-lucide="droplets" class="text-blue-200 drop-shadow-xl opacity-90 w-14 h-14"></i>
+                        </div>
+                        <div class="absolute bottom-5 right-5 flex flex-col gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-x-4 group-hover:translate-x-0">
+                             <button class="bg-white/90 p-3 rounded-full text-gray-600 hover:text-[#52796F] shadow-xl hover:scale-110 transition-transform backdrop-blur-md"><i data-lucide="smartphone" class="w-5 h-5"></i></button>
+                             <button class="bg-white/90 p-3 rounded-full text-gray-600 hover:text-[#E76F51] shadow-xl hover:scale-110 transition-transform backdrop-blur-md"><i data-lucide="eye" class="w-5 h-5"></i></button>
+                        </div>
+                        <div class="absolute top-5 left-5 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full text-[#354F52] font-bold shadow-lg text-sm tracking-wide border border-white/50">${item.price}</div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-700 ease-out bg-gradient-to-t from-black/80 via-black/40 to-transparent pt-24">
+                        <h3 class="text-2xl font-bold text-white mb-2 drop-shadow-md leading-snug">${displayName}</h3>
+                        <div class="h-0 group-hover:h-auto overflow-hidden transition-all duration-700">
+                            <p class="text-[#84A98C] text-sm mt-2 font-medium flex items-center gap-2 uppercase tracking-wider">${t.clickDetails} <i data-lucide="arrow-right" class="w-4 h-4"></i></p>
+                        </div>
+                    </div>
+                </div>
+            `}).join('');
+            
+            lucide.createIcons();
+        }
+
+        function renderPlantOfTheDay() {
+            const plant = PLANTS_DATA[0];
+            const container = document.getElementById('plant-of-day-container');
+            if(!container) return;
+            const t = TRANSLATIONS[language];
+            const displayName = language === 'kh' ? plant.name : plant.name_en;
+
+            container.innerHTML = `
+                <div class="absolute top-0 right-0 px-5 py-2.5 bg-[#E76F51] text-white font-bold text-xs rounded-bl-2xl shadow-md z-10 tracking-widest uppercase">${t.specialBadge}</div>
+                <img src="${plant.image}" class="w-full h-56 object-cover rounded-2xl mb-6 group-hover:scale-105 transition-transform duration-1000 ease-out">
+                <h3 class="font-bold text-2xl mb-2 text-[#2D4F1E] dark:text-[#84A98C]">${displayName}</h3>
+                <p class="text-sm mb-6 text-gray-500 dark:text-gray-400">${t.plantOfTheDay}</p>
+                <button onclick="openProductModal(${plant.id})" class="w-full py-3.5 rounded-xl bg-[#354F52] text-white font-bold hover:bg-[#2F3E46] transition-colors text-sm shadow-lg tracking-wide">${t.clickDetails}</button>
+            `;
+        }
+
+        function openProductModal(id) {
+            const allItems = [...PLANTS_DATA, ...FLOWERS_DATA];
+            selectedItem = allItems.find(i => i.id === id);
+            if (!selectedItem) return;
+            
+            orderQuantity = 1;
+            // Retain delivery info if already entered in cart
+            
+            const modalContent = document.getElementById('modal-content');
+            const t = TRANSLATIONS[language];
+            const displayName = language === 'kh' ? selectedItem.name : selectedItem.name_en;
+            const displayDesc = language === 'kh' ? selectedItem.description : selectedItem.description_en;
+            
+            // Build Modal HTML
+            modalContent.innerHTML = `
+                <!-- Image Side -->
+                <div class="w-full md:w-1/2 h-72 md:h-auto relative flex-shrink-0">
+                    <img src="${selectedItem.image}" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent md:hidden"></div>
+                    <div class="absolute top-6 left-6 flex gap-3">
+                        <button onclick="closeModal('product-modal')" class="bg-white/20 hover:bg-white/40 text-white p-3 rounded-full backdrop-blur-md transition-colors"><i data-lucide="x" class="w-6 h-6"></i></button>
+                    </div>
+                    <div class="absolute bottom-6 right-6 flex gap-3">
+                        <button class="bg-white/90 hover:bg-white text-[#2F3E46] px-5 py-2.5 rounded-full shadow-xl transition-colors flex items-center gap-2 text-sm font-bold backdrop-blur-md"><i data-lucide="smartphone" class="w-4.5 h-4.5"></i> ${t.arView}</button>
+                    </div>
+                    <button onclick="shareProduct()" class="absolute top-6 right-6 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full backdrop-blur-md transition-colors"><i data-lucide="share-2" class="w-6 h-6"></i></button>
+                </div>
+                <!-- Content Side -->
+                <div class="w-full md:w-1/2 p-8 md:p-12 flex flex-col overflow-y-auto">
+                    <div class="flex justify-between items-start mb-8">
+                        <div>
+                            <span class="inline-block px-4 py-1.5 rounded-full text-xs font-bold mb-3 tracking-wide uppercase ${selectedItem.category === 'plant' ? 'bg-[#52796F]/10 text-[#52796F] dark:bg-[#84A98C]/20 dark:text-[#84A98C]' : 'bg-[#E76F51]/10 text-[#E76F51] dark:bg-[#E76F51]/20 dark:text-[#E76F51]'}">
+                                ${selectedItem.category === 'plant' ? t.plants : t.flowers}
+                            </span>
+                            <h2 class="text-3xl md:text-4xl font-bold leading-tight text-[#2D4F1E] dark:text-[#84A98C]">${displayName}</h2>
+                        </div>
+                        <button onclick="closeModal('product-modal')" class="hidden md:block opacity-40 hover:opacity-100 transition-opacity"><i data-lucide="x" class="w-8 h-8"></i></button>
+                    </div>
+                    
+                    <div class="mb-8 flex-grow">
+                        <p class="text-lg leading-relaxed opacity-80 font-light text-[#4A4E4D] dark:text-[#EAE8E2]">${displayDesc}</p>
+                        
+                        <!-- Mini Gallery -->
+                        <div class="flex gap-2 mt-4 overflow-x-auto pb-2">
+                           <img src="${selectedItem.image}" class="w-16 h-16 rounded-lg object-cover border-2 border-[#52796F] cursor-pointer">
+                           <div class="w-16 h-16 rounded-lg bg-gray-100 flex items-center justify-center text-xs text-gray-400 cursor-pointer whitespace-nowrap px-1">${t.angle2}</div>
+                           <div class="w-16 h-16 rounded-lg bg-gray-100 flex items-center justify-center text-xs text-gray-400 cursor-pointer whitespace-nowrap px-1">${t.angle3}</div>
+                        </div>
+
+                        <!-- AI Tips -->
+                        <div id="ai-tips-box" class="mt-8 p-6 rounded-2xl border transition-colors duration-500 bg-indigo-50 border-indigo-100 dark:bg-indigo-900/20 dark:border-indigo-500/30">
+                            <button onclick="generateAiTips()" class="w-full text-[#52796F] font-bold flex items-center justify-center gap-3 hover:opacity-80 transition-opacity py-2">
+                                <i data-lucide="sparkles" class="w-5 h-5"></i> ${t.aiTipBtn}
+                            </button>
+                        </div>
+
+                        <!-- Inputs -->
+                        <div class="mt-10 space-y-8">
+                           <div class="flex items-center justify-between p-5 rounded-2xl bg-[#F9F7F2] dark:bg-[#1C2321]">
+                              <span class="font-bold text-lg text-[#2D4F1E] dark:text-[#EAE8E2]">${t.quantity}</span>
+                              <div class="flex items-center gap-6 px-4 py-2 rounded-xl border bg-white border-gray-200 dark:bg-[#0A2F2D] dark:border-[#2C5E55]">
+                                <button onclick="updateQty(-1)" class="p-2 hover:text-[#E76F51] transition-colors"><i data-lucide="minus" class="w-5 h-5"></i></button>
+                                <span id="qty-display" class="font-bold text-2xl w-8 text-center text-[#2D4F1E] dark:text-white">1</span>
+                                <button onclick="updateQty(1)" class="p-2 hover:text-[#E76F51] transition-colors"><i data-lucide="plus" class="w-5 h-5"></i></button>
+                              </div>
+                           </div>
+                           <div class="space-y-4">
+                             <div class="flex items-center gap-3 font-bold opacity-80 border-b border-gray-200 dark:border-gray-700 pb-3 mb-2 text-[#2D4F1E] dark:text-[#EAE8E2]">
+                               <i data-lucide="truck" class="w-5 h-5"></i>
+                               <h3>${t.deliveryInfo}</h3>
+                             </div>
+                             <input type="text" id="del-phone" value="${deliveryPhone}" oninput="deliveryPhone=this.value" placeholder="${t.phonePlaceholder}" class="w-full p-4 rounded-xl border focus:outline-none focus:ring-2 focus:ring-[#84A98C] transition-shadow bg-[#F2F0EB] border-[#E0DCD3] text-[#4A4E4D] placeholder-gray-400 dark:bg-[#3E4E4A] dark:border-[#526660] dark:text-white">
+                             <textarea id="del-address" oninput="deliveryAddress=this.value" placeholder="${t.addressPlaceholder}" class="w-full p-4 rounded-xl border focus:outline-none focus:ring-2 focus:ring-[#84A98C] h-28 resize-none transition-shadow bg-[#F2F0EB] border-[#E0DCD3] text-[#4A4E4D] placeholder-gray-400 dark:bg-[#3E4E4A] dark:border-[#526660] dark:text-white">${deliveryAddress}</textarea>
+                           </div>
+                        </div>
+                    </div>
+
+                    <!-- Checkout Bar -->
+                    <div class="mt-auto pt-6 border-t sticky bottom-0 z-20 border-gray-100 bg-white dark:border-[#1A3C34] dark:bg-[#2D3A37]">
+                        <div class="flex items-center justify-between mb-6">
+                          <div class="flex flex-col">
+                            <span class="opacity-60 text-sm font-medium uppercase tracking-wider text-[#4A4E4D] dark:text-[#EAE8E2]">${t.total}</span>
+                            <span class="text-xs opacity-40 text-[#4A4E4D] dark:text-[#EAE8E2]">(${selectedItem.price} x <span id="qty-calc">1</span>)</span>
+                          </div>
+                          <span id="total-price" class="text-4xl md:text-5xl font-bold text-[#2D4F1E] dark:text-[#84A98C]">$${parseFloat(selectedItem.price.replace('$','')).toFixed(2)}</span>
+                        </div>
+                        <button onclick="addToCart()" class="w-full bg-[#52796F] hover:bg-[#354F52] dark:bg-[#84A98C] dark:hover:bg-[#52796F] text-white py-5 rounded-2xl font-bold text-xl shadow-xl shadow-green-900/20 transition-all active:scale-95 flex items-center justify-center gap-3">
+                          <i data-lucide="shopping-cart" class="w-6 h-6"></i> ${t.addToCart}
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('product-modal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+            // Reset payment status if closing payment modal
+            if(id === 'payment-modal') {
+                paymentStatus = 'pending';
+                document.getElementById('payment-success-overlay').classList.add('hidden');
+                document.getElementById('qr-code-img').classList.remove('opacity-30');
+                document.getElementById('payment-checking').classList.add('hidden');
+                document.getElementById('btn-send-telegram').classList.add('bg-white', 'text-[#005F7F]', 'hover:bg-gray-100');
+                document.getElementById('btn-send-telegram').classList.remove('bg-green-600', 'text-white', 'hover:bg-green-700');
+                document.getElementById('btn-send-telegram').querySelector('span').innerText = TRANSLATIONS[language].sendOrder;
+            }
+        }
+
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function updateQty(delta) {
+            if (orderQuantity + delta < 1) return;
+            orderQuantity += delta;
+            setText('qty-display', orderQuantity);
+            setText('qty-calc', orderQuantity);
+            
+            const unitPrice = parseFloat(selectedItem.price.replace('$',''));
+            setText('total-price', '$' + (unitPrice * orderQuantity).toFixed(2));
+        }
+
+        function openPaymentModal() {
+            paymentStatus = 'pending';
+            const unitPrice = parseFloat(selectedItem.price.replace('$',''));
+            const total = (unitPrice * orderQuantity).toFixed(2);
+            setText('payment-total', '$' + total);
+            const qrImg = document.getElementById('qr-code-img');
+            if(qrImg) qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://t.me/koyches&color=000000`;
+            
+            openModal('payment-modal');
+        }
+
+        function simulatePayment() {
+            paymentStatus = 'checking';
+            document.getElementById('qr-code-img').classList.add('opacity-30');
+            document.getElementById('payment-checking').classList.remove('hidden');
+            
+            setTimeout(() => {
+                paymentStatus = 'success';
+                document.getElementById('payment-success-overlay').classList.remove('hidden');
+                
+                const btn = document.getElementById('btn-send-telegram');
+                btn.classList.remove('bg-white', 'text-[#005F7F]', 'hover:bg-gray-100');
+                btn.classList.add('bg-green-600', 'text-white', 'hover:bg-green-700');
+                btn.querySelector('span').innerText = TRANSLATIONS[language].sendPaidOrder;
+            }, 2000);
+        }
+
+        function sendOrder() {
+            // Build the message for multiple items in cart
+            let message = `🛒 **ORDER #${Math.floor(Math.random() * 1000)}**\n`;
+            message += `------------------------\n`;
+            
+            let total = 0;
+            cart.forEach(item => {
+               const itemTotal = parseFloat(item.price.replace('$', '')) * item.qty;
+               total += itemTotal;
+               const itemName = language === 'kh' ? item.name : item.name_en;
+               message += `🌿 **${itemName}** x ${item.qty} = $${itemTotal.toFixed(2)}\n`;
+            });
+            
+            message += `------------------------\n`;
+            message += `💰 **TOTAL:** $${total.toFixed(2)}\n`;
+            
+            const paidText = paymentStatus === 'success' ? '✅ PAID (ABA KHQR)' : '❌ UNPAID';
+            message += `💳 **Status:** ${paidText}\n`;
+            message += `------------------------\n`;
+            
+            // Add Delivery Info
+            message += `📍 **Delivery Info:**\n`;
+            message += `📞 Phone: ${deliveryPhone || 'N/A'}\n`;
+            message += `🏠 Address: ${deliveryAddress || 'N/A'}\n`;
+            message += `------------------------\n`;
+            
+            message += `From Website`;
+
+            // Note: Sending to a channel directly requires the user to be an admin of that channel 
+            // OR you use a bot. The safest static way is to send to your personal account (@koyches)
+            // and you can forward it to your channel.
+            const url = `https://t.me/koyches?text=${encodeURIComponent(message.trim())}`;
+            window.open(url, '_blank');
+        }
+
+        function shareProduct() {
+            if (!selectedItem) return;
+            const displayName = language === 'kh' ? selectedItem.name : selectedItem.name_en;
+            const text = `Check out ${displayName} at Tano Garden! Price: ${selectedItem.price}`;
+            if (navigator.share) {
+                navigator.share({ title: displayName, text: text, url: window.location.href });
+            } else {
+                alert('Link copied!');
+            }
+        }
+
+        function toggleTheme() {
+            isDarkMode = !isDarkMode;
+            document.documentElement.classList.toggle('dark');
+            const icon = document.getElementById('theme-icon');
+            if (isDarkMode) {
+                icon.setAttribute('data-lucide', 'sun');
+                icon.classList.remove('text-[#2F3E46]');
+                icon.classList.add('text-[#F4A261]');
+            } else {
+                icon.setAttribute('data-lucide', 'moon');
+                icon.classList.remove('text-[#F4A261]');
+                icon.classList.add('text-[#2F3E46]');
+            }
+            lucide.createIcons();
+            
+            if (selectedItem && !document.getElementById('product-modal').classList.contains('hidden')) {
+                // If modal is open, we refresh it to apply new classes
+                 openProductModal(selectedItem.id); 
+            }
+            updateLanguageUI();
+        }
+
+        function toggleLanguage() {
+            language = language === 'kh' ? 'en' : 'kh';
+            updateLanguageUI();
+            renderPlantOfTheDay(); 
+            renderProducts(); 
+            renderCartItems(); // Update cart text if open
+        }
+
+        function updateLanguageUI() {
+            const t = TRANSLATIONS[language];
+            setText('nav-title', t.title);
+            
+            const desktopSearch = document.getElementById('desktop-search');
+            if(desktopSearch) desktopSearch.placeholder = t.searchPlaceholder;
+            const mobileSearch = document.getElementById('mobile-search');
+            if(mobileSearch) mobileSearch.placeholder = t.searchPlaceholder;
+            
+            setText('hero-badge', t.natureBadge);
+            setText('hero-title', t.heroTitle);
+            setText('hero-subtitle', t.heroSubtitle);
+            setText('promo-subtitle', t.promoSubtitle);
+            setText('promo-title', t.promoTitle);
+            setText('tool-doctor', t.plantDoctor);
+            setText('tool-planner', t.gardenPlanner);
+            setText('tool-community', t.community);
+            setText('tool-doctor-desc', t.plantDoctorDesc);
+            setText('tool-planner-desc', t.gardenPlannerDesc);
+            setText('tool-community-desc', t.communityDesc);
+            setText('cat-plant-text', t.plants);
+            setText('cat-flower-text', t.flowers);
+            setText('tips-title', t.tipsTitle);
+            setText('tips-subtitle', t.tipsSubtitle);
+            setText('tip-1-title', t.tip1Title);
+            setText('tip-1-desc', t.tip1Desc);
+            setText('tip-2-title', t.tip2Title);
+            setText('tip-2-desc', t.tip2Desc);
+            setText('tip-3-title', t.tip3Title);
+            setText('tip-3-desc', t.tip3Desc);
+            setText('faq-title', t.faqTitle);
+            setText('faq-1-q', t.faq1Q);
+            setText('faq-1-a', t.faq1A);
+            setText('faq-2-q', t.faq2Q);
+            setText('faq-2-a', t.faq2A);
+            setText('footer-thank', t.thankYou);
+            setText('footer-msg', `"${t.thankYouMessage}"`);
+            setText('footer-contact', t.contactUs);
+            setText('chat-title', t.chatTitle);
+            setText('chat-status', t.chatOnline);
+            setText('sort-label', t.sortLabel);
+            setText('sort-asc', t.sortAsc);
+            setText('sort-desc', t.sortDesc);
+            setText('about-title', t.aboutTitle);
+            setText('about-desc', t.aboutDesc);
+            setText('feat-1', t.feat1);
+            setText('feat-2', t.feat2);
+            setText('feat-3', t.feat3);
+            setText('feat-4', t.feat4);
+            setText('cart-title', t.cartTitle);
+            setText('cart-empty-text', t.cartEmpty);
+            setText('cart-total-label', t.total);
+            setText('btn-checkout', t.checkout);
+            
+            const chatInput = document.getElementById('chat-input');
+            if(chatInput) chatInput.placeholder = t.chatPlaceholder;
+            
+            // Payment Modal Text
+            setText('payment-scan-text', t.scanPay);
+            setText('btn-open-app', t.openApp);
+            setText('payment-success-text', t.paymentSuccess);
+            setText('eco-text', t.ecoImpact);
+            setText('label-total', t.total);
+            setText('merchant-label', t.merchantName);
+            setText('detecting-text', t.detecting);
+            
+            // Promo Modal
+            setText('promo-modal-title', t.promoModalTitle);
+            setText('promo-modal-offer', t.promoModalOffer);
+            setText('promo-desc', t.promoDesc);
+            setText('promo-cond-title', t.promoCondTitle);
+            setText('cond-1', t.cond1);
+            setText('cond-2', t.cond2);
+            setText('cond-3', t.cond3);
+            setText('btn-close-promo', t.btnClose);
+            
+            // Footer Labels
+            setText('chat-telegram-label', t.chatTelegramLabel);
+            setText('facebook-label', t.facebookLabel);
+            
+            const btnSendTelegram = document.querySelector('#btn-send-telegram span');
+            if(btnSendTelegram) {
+                if(paymentStatus !== 'success') {
+                     btnSendTelegram.innerText = t.sendOrder;
+                } else {
+                     btnSendTelegram.innerText = t.sendPaidOrder;
+                }
+            }
+            
+            // Simulate button in payment modal
+            const simBtn = document.querySelector('button[onclick="simulatePayment()"]');
+            if(simBtn) simBtn.innerText = t.simulatePay;
+        }
+
+        // Chat
+        function toggleChat() {
+            const chatWin = document.getElementById('chat-window');
+            chatWin.classList.toggle('hidden');
+            if(!chatWin.classList.contains('hidden')) {
+                renderChatMessages();
+            }
+        }
+
+        function renderChatMessages() {
+            const container = document.getElementById('chat-messages');
+            container.innerHTML = chatMessages.map(msg => `
+                <div class="flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}">
+                   <div class="max-w-[85%] rounded-2xl px-5 py-3.5 text-sm leading-relaxed shadow-sm ${msg.role === 'user' ? 'bg-[#52796F] text-white rounded-br-none' : 'bg-white text-gray-800 border border-gray-100 rounded-bl-none'}">
+                     ${msg.text}
+                   </div>
+                 </div>
+            `).join('');
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function handleChatSubmit(e) {
+            e.preventDefault();
+            const input = document.getElementById('chat-input');
+            const text = input.value.trim();
+            if(!text) return;
+            
+            chatMessages.push({ role: 'user', text });
+            input.value = '';
+            renderChatMessages();
+            
+            // Simulate AI
+            setTimeout(() => {
+                chatMessages.push({ role: 'assistant', text: language === 'kh' ? "សូមទាក់ទងមកលេខទូរស័ព្ទផ្ទាល់ ឬតាម Telegram របស់យើង។" : "Please contact us via phone or Telegram directly." });
+                renderChatMessages();
+            }, 1000);
+        }
+
+        function generateAiTips() {
+            if(!selectedItem) return;
+            const box = document.getElementById('ai-tips-box');
+            box.innerHTML = `<div class="flex justify-center p-2"><i data-lucide="loader-2" class="w-6 h-6 animate-spin text-[#52796F]"></i></div>`;
+            lucide.createIcons();
+            
+            setTimeout(() => {
+                const msg = language === 'kh' ? "សូមអភ័យទោស មានបញ្ហាបច្ចេកទេស។" : "Sorry, technical error.";
+                box.innerHTML = `
+                    <div class="animate-in fade-in zoom-in-95 duration-500">
+                       <div class="flex items-center gap-2 mb-3 text-[#52796F]">
+                         <i data-lucide="sparkles" class="w-5 h-5"></i>
+                         <h4 class="font-bold tracking-wide">${TRANSLATIONS[language].aiTipTitle}</h4>
+                       </div>
+                       <p class="text-base whitespace-pre-line leading-relaxed opacity-90 text-[#4A4E4D] dark:text-[#EAE8E2]">${msg}</p>
+                    </div>
+                `;
+                lucide.createIcons();
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
