@@ -105,7 +105,7 @@
         .animate-marquee { display: inline-block; animation: marquee 40s linear infinite; white-space: nowrap; }
 
         /* Plant Vine Animation */
-        .plant-vine-path { stroke-dasharray: 300; transition: stroke-dashoffset 0.1s linear; }
+        .plant-vine-path { stroke-dasharray: 1000; transition: stroke-dashoffset 0.1s linear; }
 
         /* Water Droplet */
         .water-droplet { transition: transform 0.8s ease-out; opacity: 0; }
@@ -157,8 +157,8 @@
                 </button>
                 
                 <div class="hidden md:flex flex-col items-end text-xs font-semibold ml-2">
-                    <a href="tel:+855717299893" class="flex items-center gap-1 hover:text-[#E76F51] transition-colors text-[#52796F] dark:text-[#84A98C]">
-                        <i data-lucide="phone" class="w-3.5 h-3.5"></i> 071 729 9893
+                    <a href="tel:+85517912024" class="flex items-center gap-1 hover:text-[#E76F51] transition-colors text-[#52796F] dark:text-[#84A98C]">
+                        <i data-lucide="phone" class="w-3.5 h-3.5"></i> 017 912 024
                     </a>
                 </div>
 
@@ -272,87 +272,39 @@
         </div>
     </main>
 
-    <!-- Testimonials -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-[#EAE8E2] dark:border-[#2D3A37]">
-        <div class="text-center mb-16">
-            <h2 id="testimonials-title" class="text-3xl md:text-4xl font-bold mb-4 text-[#52796F] dark:text-[#84A98C]">មតិពីអតិថិជន</h2>
-            <div class="h-1 w-20 bg-[#F4A261] mx-auto rounded-full"></div>
-        </div>
-        <div class="grid md:grid-cols-3 gap-8">
-            <!-- Static Testimonials -->
-            <div class="p-8 rounded-[2rem] relative transition-transform hover:-translate-y-1 duration-500 bg-white shadow-xl shadow-gray-100 dark:bg-[#2D3A37] dark:shadow-[0_0_15px_rgba(255,255,255,0.05)]">
-                <i data-lucide="quote" class="text-[#F4A261]/20 absolute top-8 right-8 w-10 h-10"></i>
-                <div class="flex gap-1 mb-5">
-                    <i data-lucide="star" class="w-4.5 h-4.5 text-[#F4A261] fill-[#F4A261]"></i>
-                    <i data-lucide="star" class="w-4.5 h-4.5 text-[#F4A261] fill-[#F4A261]"></i>
-                    <i data-lucide="star" class="w-4.5 h-4.5 text-[#F4A261] fill-[#F4A261]"></i>
-                    <i data-lucide="star" class="w-4.5 h-4.5 text-[#F4A261] fill-[#F4A261]"></i>
-                    <i data-lucide="star" class="w-4.5 h-4.5 text-[#F4A261] fill-[#F4A261]"></i>
-                </div>
-                <p class="italic mb-8 leading-relaxed text-lg text-gray-500 dark:text-gray-400">"ដើមឈើស្អាតខ្លាំង ដឹកជញ្ជូនលឿន! (Beautiful plants, fast delivery!)"</p>
-                <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 bg-[#EAE8E2] rounded-full flex items-center justify-center text-[#52796F] font-bold text-lg">B</div>
-                    <div>
-                        <p class="font-bold text-lg text-[#52796F] dark:text-[#84A98C]">Bopha S.</p>
-                        <p class="text-xs text-[#52796F] flex items-center gap-1"><i data-lucide="check-circle-2" class="w-3 h-3"></i> <span class="verified-text">បានទិញពិត</span></p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="p-8 rounded-[2rem] relative transition-transform hover:-translate-y-1 duration-500 bg-white shadow-xl shadow-gray-100 dark:bg-[#2D3A37] dark:shadow-[0_0_15px_rgba(255,255,255,0.05)]">
-                <i data-lucide="quote" class="text-[#F4A261]/20 absolute top-8 right-8 w-10 h-10"></i>
-                <div class="flex gap-1 mb-5">
-                    <i data-lucide="star" class="w-4.5 h-4.5 text-[#F4A261] fill-[#F4A261]"></i>
-                    <i data-lucide="star" class="w-4.5 h-4.5 text-[#F4A261] fill-[#F4A261]"></i>
-                    <i data-lucide="star" class="w-4.5 h-4.5 text-[#F4A261] fill-[#F4A261]"></i>
-                    <i data-lucide="star" class="w-4.5 h-4.5 text-[#F4A261] fill-[#F4A261]"></i>
-                    <i data-lucide="star" class="w-4.5 h-4.5 text-[#F4A261] fill-[#F4A261]"></i>
-                </div>
-                <p class="italic mb-8 leading-relaxed text-lg text-gray-500 dark:text-gray-400">"The quality is amazing. My garden looks perfect now."</p>
-                <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 bg-[#EAE8E2] rounded-full flex items-center justify-center text-[#52796F] font-bold text-lg">D</div>
-                    <div>
-                        <p class="font-bold text-lg text-[#52796F] dark:text-[#84A98C]">David K.</p>
-                        <p class="text-xs text-[#52796F] flex items-center gap-1"><i data-lucide="check-circle-2" class="w-3 h-3"></i> <span class="verified-text">បានទិញពិត</span></p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="p-8 rounded-[2rem] relative transition-transform hover:-translate-y-1 duration-500 bg-white shadow-xl shadow-gray-100 dark:bg-[#2D3A37] dark:shadow-[0_0_15px_rgba(255,255,255,0.05)]">
-                <i data-lucide="quote" class="text-[#F4A261]/20 absolute top-8 right-8 w-10 h-10"></i>
-                <div class="flex gap-1 mb-5">
-                    <i data-lucide="star" class="w-4.5 h-4.5 text-[#F4A261] fill-[#F4A261]"></i>
-                    <i data-lucide="star" class="w-4.5 h-4.5 text-[#F4A261] fill-[#F4A261]"></i>
-                    <i data-lucide="star" class="w-4.5 h-4.5 text-[#F4A261] fill-[#F4A261]"></i>
-                    <i data-lucide="star" class="w-4.5 h-4.5 text-[#F4A261] fill-[#F4A261]"></i>
-                    <i data-lucide="star" class="w-4.5 h-4.5 text-[#F4A261] fill-[#F4A261]"></i>
-                </div>
-                <p class="italic mb-8 leading-relaxed text-lg text-gray-500 dark:text-gray-400">"សេវាកម្មល្អ តម្លៃសមរម្យ។ (Good service, reasonable price.)"</p>
-                <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 bg-[#EAE8E2] rounded-full flex items-center justify-center text-[#52796F] font-bold text-lg">S</div>
-                    <div>
-                        <p class="font-bold text-lg text-[#52796F] dark:text-[#84A98C]">Sokha M.</p>
-                        <p class="text-xs text-[#52796F] flex items-center gap-1"><i data-lucide="check-circle-2" class="w-3 h-3"></i> <span class="verified-text">បានទិញពិត</span></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Fixed Bottom Address -->
     <div class="fixed bottom-6 left-0 right-0 z-40 pointer-events-none flex justify-center">
         <div class="relative max-w-[95%] sm:max-w-sm md:max-w-3xl w-full mx-auto">
-            <!-- Growing Vine Animation -->
+            <!-- Growing Vine Animation (Restored) -->
             <div class="absolute bottom-[90%] left-0 w-full h-16 pointer-events-none z-50 overflow-visible">
-                <div class="absolute bottom-0 left-0 transform -translate-x-1/2 translate-y-3">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="#8B4513"><path d="M4 6h16l-2 14H6L4 6z" /><path d="M2 4h20v2H2z" /></svg>
-                </div>
-                <svg class="w-full h-full overflow-visible" preserveAspectRatio="none">
-                    <defs>
-                        <linearGradient id="vineGradient" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stopColor="#84A98C" /><stop offset="100%" stopColor="#52796F" /></linearGradient>
-                    </defs>
-                    <path id="vine-path" d="M 10 35 Q 50 5, 100 35 T 200 35 T 300 35 T 400 35 T 500 35 T 600 35 T 800 35" fill="none" stroke="url(#vineGradient)" stroke-width="4" stroke-linecap="round" class="plant-vine-path" style="stroke-dasharray: 1000; stroke-dashoffset: 1000;"></path>
-                </svg>
+               <!-- Brown Pot -->
+               <div class="absolute bottom-0 left-0 transform -translate-x-1/2 translate-y-3">
+                 <svg width="40" height="40" viewBox="0 0 24 24" fill="#8B4513" xmlns="http://www.w3.org/2000/svg"><path d="M4 6h16l-2 14H6L4 6z" /><path d="M2 4h20v2H2z" /></svg>
+               </div>
+               
+               <!-- Vine SVG -->
+               <svg class="w-full h-full overflow-visible" preserveAspectRatio="none">
+                 <defs>
+                   <linearGradient id="vineGradient" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stopColor="#84A98C" /><stop offset="100%" stopColor="#52796F" /></linearGradient>
+                 </defs>
+                 
+                 <!-- The Vine Path -->
+                 <path id="vine-path" d="M 10 35 Q 50 5, 100 35 T 200 35 T 300 35 T 400 35 T 500 35 T 600 35 T 800 35" fill="none" stroke="url(#vineGradient)" stroke-width="4" stroke-linecap="round" class="plant-vine-path" style="stroke-dasharray: 1000; stroke-dashoffset: 1000;"></path>
+                 
+                 <!-- Leaves -->
+                 <g class="leaf-group" style="transform: translate(20%, 20px) scale(0); transition: transform 0.5s;">
+                    <path d="M0 0 Q 10 -10, 20 0 Q 10 10, 0 0" fill="#84A98C" transform="rotate(-45)" />
+                 </g>
+                 <g class="leaf-group" style="transform: translate(40%, 20px) scale(0); transition: transform 0.5s;">
+                    <path d="M0 0 Q 10 -10, 20 0 Q 10 10, 0 0" fill="#84A98C" transform="rotate(45)" />
+                 </g>
+                 <g class="leaf-group" style="transform: translate(60%, 20px) scale(0); transition: transform 0.5s;">
+                    <path d="M0 0 Q 10 -10, 20 0 Q 10 10, 0 0" fill="#84A98C" transform="rotate(-45)" />
+                 </g>
+                 <g class="leaf-group" style="transform: translate(80%, 20px) scale(0); transition: transform 0.5s;">
+                    <path d="M0 0 Q 10 -10, 20 0 Q 10 10, 0 0" fill="#84A98C" transform="rotate(45)" />
+                 </g>
+               </svg>
             </div>
             
             <!-- Address Box -->
@@ -511,7 +463,7 @@
                     <p id="footer-msg" class="text-white/80 text-lg leading-relaxed font-light italic">"ពួកយើងមានកិត្តិយសណាស់ដែលលោកអ្នកបានជ្រើសរើស ចម្ការតាណូ។ រាល់ការជាវរបស់លោកអ្នក គឺជាកម្លាំងចិត្តដ៏ធំធេងសម្រាប់ពួកយើង។"</p>
                 </div>
                 <div class="rounded-[2.5rem] overflow-hidden border-4 border-white/10 shadow-2xl h-64 md:h-72 relative group">
-                    <iframe width="100%" height="100%" frameborder="0" style="border:0" src="https://maps.google.com/maps?q=11.468869,104.928570&z=15&output=embed" allowfullscreen class="grayscale group-hover:grayscale-0 transition-all duration-700"></iframe>
+                    <iframe width="100%" height="100%" frameborder="0" style="border:0" src="https://maps.google.com/maps?q=11.468869,104.928570&z=15&t=k&output=embed" allowfullscreen class="group-hover:opacity-90 transition-all duration-700"></iframe>
                 </div>
             </div>
             <div class="flex flex-col justify-center space-y-8">
@@ -524,11 +476,8 @@
                     <i data-lucide="check-circle-2" class="w-7 h-7 opacity-0 group-hover:opacity-100 transition-opacity"></i>
                 </a>
                 <div class="flex gap-6">
-                    <a href="#" class="flex-1 bg-white/5 hover:bg-white/10 p-6 rounded-2xl flex items-center justify-center gap-3 transition-colors border border-white/5">
+                    <a href="https://www.facebook.com/share/14RfofRvpqR/" target="_blank" class="flex-1 bg-white/5 hover:bg-white/10 p-6 rounded-2xl flex items-center justify-center gap-3 transition-colors border border-white/5">
                         <i data-lucide="facebook" class="w-6 h-6"></i> <span class="font-bold">Facebook</span>
-                    </a>
-                    <a href="#" class="flex-1 bg-white/5 hover:bg-white/10 p-6 rounded-2xl flex items-center justify-center gap-3 transition-colors border border-white/5">
-                        <i data-lucide="instagram" class="w-6 h-6"></i> <span class="font-bold">Instagram</span>
                     </a>
                 </div>
                 <div class="mt-12 text-center md:text-left text-[#84A98C] text-sm font-medium tracking-wide">© 2025 TANO Garden. All Rights Reserved.</div>
@@ -663,7 +612,19 @@
             window.addEventListener('scroll', () => {
                 const nav = document.getElementById('navbar');
                 const vinePath = document.getElementById('vine-path');
+                const catSticky = document.getElementById('category-sticky');
+                const footer = document.querySelector('footer');
                 
+                // sticky toggle logic
+                if (footer) {
+                    const rect = footer.getBoundingClientRect();
+                    if (rect.top < window.innerHeight) {
+                        catSticky.classList.add('opacity-0', '-translate-y-full', 'pointer-events-none');
+                    } else {
+                        catSticky.classList.remove('opacity-0', '-translate-y-full', 'pointer-events-none');
+                    }
+                }
+
                 if (window.scrollY > 20) {
                     nav.classList.add('glass-nav', 'py-3', 'shadow-sm');
                     nav.classList.remove('bg-transparent', 'py-6');
@@ -686,6 +647,17 @@
                     const dashOffset = 1000 - (scrollPercent * 1000);
                     vinePath.style.strokeDashoffset = dashOffset;
                 }
+                
+                // Animate Leaves
+                const leaves = document.querySelectorAll('.leaf-group');
+                leaves.forEach((leaf, idx) => {
+                    const threshold = 0.2 + (idx * 0.2);
+                    if (scrollPercent > threshold) {
+                       leaf.style.transform = leaf.style.transform.replace('scale(0)', 'scale(1)');
+                    } else {
+                       leaf.style.transform = leaf.style.transform.replace('scale(1)', 'scale(0)');
+                    }
+                });
             });
 
             // Input Listeners
@@ -696,6 +668,12 @@
             document.getElementById('mobile-search').addEventListener('input', (e) => {
                 searchQuery = e.target.value;
                 renderProducts();
+            });
+            
+            // Keyboard Nav
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') setCategory('plant');
+                if (e.key === 'ArrowRight') setCategory('flower');
             });
         });
 
@@ -1003,7 +981,7 @@ From Website`;
             document.getElementById('tool-community').innerText = t.community;
             document.getElementById('cat-plant-text').innerText = t.plants;
             document.getElementById('cat-flower-text').innerText = t.flowers;
-            document.getElementById('testimonials-title').innerText = t.testimonialsTitle;
+            // Removed testimonials UI update as section is deleted
             document.getElementById('footer-thank').innerText = t.thankYou;
             document.getElementById('footer-msg').innerText = `"${t.thankYouMessage}"`;
             document.getElementById('footer-contact').innerText = t.contactUs;
